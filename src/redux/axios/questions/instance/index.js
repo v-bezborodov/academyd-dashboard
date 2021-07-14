@@ -7,7 +7,6 @@ if (localStorage.accessToken) {
     headers.Authorization = `Bearer ${localStorage.accessToken}`
 }
 
-
 const questionsInstance = axios.create({
     baseURL: 'https://coffee.slawek.dev/',
     headers,

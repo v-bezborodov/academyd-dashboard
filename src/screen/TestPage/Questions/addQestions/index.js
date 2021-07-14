@@ -63,7 +63,12 @@ const QuestionsPageNew = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+
         const { weight, time, numberCorrect, questions1, questions2, questions3, questions4 } = event.target.elements
+
+        if(!numberCorrect || !numberCorrect.value){
+            return
+        }
 
         const bodys = {
             "correct": numberCorrect.value, 

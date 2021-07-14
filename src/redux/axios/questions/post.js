@@ -13,7 +13,7 @@ const QuestionsPost = (
                 weight: weight,
                 time: time,
                 level: levelQuestions,
-                question_body: body,
+                question_body: JSON.stringify(body),
             }
         )
             .then((res) => {
