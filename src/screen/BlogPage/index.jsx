@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import { Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
@@ -12,34 +13,41 @@ const BlogPage = () => {
     const blogCategory = useSelector(store => store.blog.blogCategory)
 
     useEffect(() => {
-        if(localStorage.accessToken){
+        if (localStorage.accessToken) {
             dispatch(BlogGetThunk())
             dispatch(BlogCategoryThunk())
-        }else {
+        } else {
             history.push('/')
         }
     }, [])
 
     return (
         <div className="container">
-            <Menu/>
+            <Menu />
             <div>
-            <p>Категории</p>
-                {blogCategory?.map((row) => (
-                    <div>
-                        <img src={row.img_public}/>
-                        {row.title}
-                        {row.body}
-                    </div>
-                    ))}
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => history.push('/blog/category')}
+                >
+                    Перейти к категориям
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => history.push('/blog/newPost')}
+                >
+                    Создать пост
+                </Button>
                 <p>Блог</p>
+
                 {blog?.map((row) => (
                     <div>
-                        <img src={row.img_public}/>
+                        <img src={row.img_public} />
                         {row.title}
                         {row.body}
                     </div>
-                    ))}
+                ))}
             </div>
         </div>
     )

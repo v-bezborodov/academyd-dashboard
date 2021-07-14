@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
@@ -23,6 +24,13 @@ const TestPage = () => {
         <div className="container">
             <Menu />
             <div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => history.push('/all-questions')}
+                >
+                    Вопросы к тесам
+                </Button>
                 <p>Все тесты</p>
                 {tests?.map((row) => (
                     <div>

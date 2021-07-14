@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { setQuestion } from "../../action/questions";
 import QuestionsGet from "../../axios/questions";
+import QuestionsPost from "../../axios/questions/post";
 
 export const  QuestionsGetThunk = () => {
     return dispatch => {
@@ -16,3 +17,28 @@ export const  QuestionsGetThunk = () => {
         );
     };
 };
+
+export const  QuestionsPostThunk = (
+    weight,
+    time,
+    levelQuestions,
+    body,
+) => {
+    return dispatch => {
+        dispatch(
+            QuestionsPost(
+                weight,
+                time,
+                levelQuestions,
+                body,
+                res => {
+                    toast.success("Вопрос добавлен")
+                },
+                error => {
+                    toast.error("Ошибка" + error)
+                },
+            ),
+        );
+    };
+};
+

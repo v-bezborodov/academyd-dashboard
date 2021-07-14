@@ -45,11 +45,6 @@ const Menu = () => {
                         </div>
                     </NavLink>
                     
-                    <NavLink className="linkNav" to={"/all-questions"} activeClassName="active_tab">
-                        <div className="iconNav">
-                            <p>Вопросы к тестам</p>
-                        </div>
-                    </NavLink>
 
                     <NavLink className="linkNav" to={"/chek-test"} activeClassName="active_tab">
                         <div className="iconNav">

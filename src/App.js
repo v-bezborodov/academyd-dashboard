@@ -10,9 +10,12 @@ import ChekTestPage from "./screen/CheckTestPage";
 import BlogPage from "./screen/BlogPage";
 import TestPage from "./screen/TestPage";
 import CastomerPage from "./screen/CustomerPage";
-import QuestionsPage from './screen/Questions';
 import CityPage from './screen/CityPage';
 import CoffeePage from './screen/CoffeePage';
+import CategoryPage from './screen/BlogPage/AddCategory';
+import AddPostPage from './screen/BlogPage/AddPost';
+import QuestionsPage from './screen/TestPage/Questions';
+import QuestionsPageNew from './screen/TestPage/Questions/addQestions';
 
 function App() {
 
@@ -34,6 +37,9 @@ function App() {
                           <Route path="/all-customer" exact component={CastomerPage}/>
                           <Route path="/all-city" exact component={CityPage}/>
                           <Route path="/all-coffee" exact component={CoffeePage}/>
+                          <Route path="/blog/category" exact component={CategoryPage}/>
+                          <Route path="/blog/newPost" exact component={AddPostPage}/>
+                          <Route path="/all-questions/new" exact component={QuestionsPageNew}/>
                       </Switch>
                   </div>
               </div>
