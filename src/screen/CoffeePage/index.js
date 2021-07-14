@@ -1,5 +1,5 @@
-import { Button, MenuItem, Select, TextField } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import { MenuItem, Select, TextField } from '@material-ui/core';
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
@@ -8,6 +8,9 @@ import { CoffeeGetThunk, CoffeePostThunk } from '../../redux/thunk/coffee';
 import InputLabel from '@material-ui/core/InputLabel';
 import { FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm } from "react-hook-form";
+
+import CoffeePageTable from "./table";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -24,6 +27,7 @@ const CoffeePage = () => {
     const [city_id, setCity_id] = React.useState('');
     const city = useSelector(store => store.city.city)
 
+    const { register, control, handleSubmit, watch, formState: { errors } } = useForm();
 
     const handleClose = () => {
         setOpenCity_id(false);
@@ -37,8 +41,6 @@ const CoffeePage = () => {
         setCity_id(event.target.value);
     };
 
-
-
     useEffect(() => {
         if (localStorage.accessToken) {
             dispatch(CoffeeGetThunk())
@@ -49,15 +51,21 @@ const CoffeePage = () => {
     }, [])
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const { name, address, email, phone,
-            // avatar, 
-            instagram, fb, vk, working_time } = event.target.elements
-        dispatch(CoffeePostThunk(name.value, address.value, email.value, phone.value,
-            // avatar.value, 
-            instagram.value, fb.value, vk.value, working_time.value, city_id));
-            
+    const onSubmit = (data) => {
+        if (!data) return
+
+        dispatch(CoffeePostThunk(data.name,
+                                data.address,
+                                data.email,
+                                data.phone,
+                                // avatar.value,
+                                data.instagram,
+                                data.fb,
+                                data.vk,
+                                data.working_time,
+                                data.city_id)
+            );
+
         dispatch(CoffeeGetThunk())
     }
 
@@ -66,27 +74,68 @@ const CoffeePage = () => {
             <Menu />
             <div>
                 <div>
-                    <form onSubmit={handleSubmit}>
-                        <TextField onChange={console.log} id="name" label="Название" />
-                        <TextField onChange={console.log} id="address" label="Адрес" />
-                        <TextField onChange={console.log} id="email" label="E-mail" />
-                        <TextField onChange={console.log} id="phone" label="Телефон" />
-                        {/* <input
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            id="avatar"
-                            multiple
-                            type="file"
-                        />
-                        <label htmlFor="avatar">
-                            <Button variant="raised" component="span">
-                                Upload
-                            </Button>
-                        </label> */}
-                        <TextField onChange={console.log} id="instagram" label="instagram" />
-                        <TextField onChange={console.log} id="fb" label="Facebook" />
-                        <TextField onChange={console.log} id="vk" label="Вконтакте" />
-                        <TextField onChange={console.log} id="working_time" label="Время работы" />
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <TextField {...register("name", { required: 'Не может быть пустым' })}
+                                    id="name"
+                                    label="Название"
+                                    error={errors.name}
+                                    helperText={errors?.name?.message&&errors.name.message}/>
+
+                        <TextField {...register("address", { required: 'Не может быть пустым' })}
+                                    id="address"
+                                    label="Адрес"
+                                    error={errors.address}
+                                    helperText={errors?.address?.message&&errors.address.message}/>
+
+                        <TextField {...register("email",
+                                { required: 'Не может быть пустым' ,
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: 'Неправильный формат email',
+                                        },
+                                    })}
+                                   id="email"
+                                   label="E-mail"
+                                   type="email"
+                                   error={errors.email}
+                                   helperText={errors?.email?.message&&errors.email.message}/>
+
+                        <TextField {...register("phone",
+                                {required: 'Не может быть пустым' ,
+                                        pattern: {
+                                            value: /^[0-9]{3,15}$/i,
+                                            message: 'Навильный формат',
+                                        },
+                                    })}
+                                   id="phone"
+                                   label="Телефон"
+                                   error={errors.phone}
+                                   helperText={errors?.phone?.message&&errors.phone.message}/>
+
+                        <TextField {...register("instagram", { required: 'Не может быть пустым' })}
+                                   id="instagram"
+                                   label="instagram"
+                                   error={errors.instagram}
+                                   helperText={errors?.instagram?.message&&errors.instagram.message}/>
+
+                        <TextField {...register("fb", { required: 'Не может быть пустым' })}
+                                   id="fb"
+                                   label="Facebook"
+                                   error={errors.fb}
+                                   helperText={errors?.fb?.message&&errors.fb.message}/>
+
+                        <TextField {...register("vk", { required: 'Не может быть пустым' })}
+                                   id="vk"
+                                   label="Вконтакте"
+                                   error={errors.vk}
+                                   helperText={errors?.vk?.message&&errors.vk.message}/>
+
+                        <TextField {...register("working_time", { required: 'Не может быть пустым' })}
+                                   id="working_time"
+                                   label="Время работы"
+                                   error={errors.working_time}
+                                   helperText={errors?.working_time?.message&&errors.working_time.message}/>
+
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-controlled-open-select-label">Город</InputLabel>
                             <Select
@@ -103,16 +152,12 @@ const CoffeePage = () => {
                                 ))}
                             </Select>
                         </FormControl>
-
-                        <button type="submit" >Login</button>
+                        <br/>
+                        <button type="submit" >Создать новую кофейню</button>
                     </form>
                 </div>
                 <p>Кофейни</p>
-                {coffee?.map((row) => (
-                    <div>
-                        {row.name}
-                    </div>
-                ))}
+                <CoffeePageTable {...{coffee}}/>
             </div>
         </div>
     )
