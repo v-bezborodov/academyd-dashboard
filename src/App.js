@@ -10,6 +10,9 @@ import ChekTestPage from "./screen/CheckTestPage";
 import BlogPage from "./screen/BlogPage";
 import TestPage from "./screen/TestPage";
 import CastomerPage from "./screen/CustomerPage";
+import QuestionsPage from './screen/Questions';
+import CityPage from './screen/CityPage';
+import CoffeePage from './screen/CoffeePage';
 
 function App() {
 
@@ -27,7 +30,10 @@ function App() {
                           <Route path="/chek-test" exact component={ChekTestPage}/>
                           <Route path="/blog" exact component={BlogPage}/>
                           <Route path="/all-test" exact component={TestPage}/>
+                          <Route path="/all-questions" exact component={QuestionsPage}/>
                           <Route path="/all-customer" exact component={CastomerPage}/>
+                          <Route path="/all-city" exact component={CityPage}/>
+                          <Route path="/all-coffee" exact component={CoffeePage}/>
                       </Switch>
                   </div>
               </div>

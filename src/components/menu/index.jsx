@@ -19,7 +19,18 @@ const Menu = () => {
                         <div className="iconNav">
                             <p>Все сотрудники</p>
                         </div>
+                    </NavLink>
 
+                    <NavLink className="linkNav" to={"/all-city"} activeClassName="active_tab">
+                        <div className="iconNav">
+                            <p>Все города</p>
+                        </div>
+                    </NavLink>
+
+                    <NavLink className="linkNav" to={"/all-coffee"} activeClassName="active_tab">
+                        <div className="iconNav">
+                            <p>Все кофейни</p>
+                        </div>
                     </NavLink>
 
                     <NavLink className="linkNav" to={"/blog"} activeClassName="active_tab">
@@ -33,6 +44,13 @@ const Menu = () => {
                             <p>Тесты</p>
                         </div>
                     </NavLink>
+                    
+                    <NavLink className="linkNav" to={"/all-questions"} activeClassName="active_tab">
+                        <div className="iconNav">
+                            <p>Вопросы к тестам</p>
+                        </div>
+                    </NavLink>
+
                     <NavLink className="linkNav" to={"/chek-test"} activeClassName="active_tab">
                         <div className="iconNav">
                             <p>Проверка тестов</p>
@@ -44,6 +62,7 @@ const Menu = () => {
                             <p>Выход</p>
                         </div>
                     </NavLink>
+                    
                 </nav>
             </div>
         </MenuSt>

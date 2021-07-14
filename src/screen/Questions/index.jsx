@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
+import { QuestionsGetThunk } from '../../redux/thunk/questions';
 import { TestsGetThunk } from '../../redux/thunk/tests';
 
 
-const TestPage = () => {
+const QuestionsPage = () => {
     let history = useHistory()
     const dispatch = useDispatch()
-    const tests = useSelector(store => store.tests.tests)
+    const questions = useSelector(store => store.questions.questions)
 
 
     useEffect(() => {
         if (localStorage.accessToken) {
-            dispatch(TestsGetThunk())
+            dispatch(QuestionsGetThunk())
         } else {
             history.push('/')
         }
@@ -24,7 +25,7 @@ const TestPage = () => {
             <Menu />
             <div>
                 <p>Все тесты</p>
-                {tests?.map((row) => (
+                {questions?.map((row) => (
                     <div>
                         <img src={row.img_public} />
                         {row.title}
@@ -36,4 +37,4 @@ const TestPage = () => {
     )
 }
 
-export default TestPage;
+export default QuestionsPage;
