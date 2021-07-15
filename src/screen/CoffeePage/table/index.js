@@ -33,11 +33,8 @@ const CoffeePageTable = ({coffee}) => {
                             <TableCell>Изображение</TableCell>
                             <TableCell>Название</TableCell>
                             <TableCell align="right">Адрес</TableCell>
-                            <TableCell align="right">Email</TableCell>
-                            <TableCell align="right">Телефон</TableCell>
-                            <TableCell align="right">Инстаграм</TableCell>
-                            <TableCell align="right">Вконтакте</TableCell>
-                            <TableCell align="right">Фейсбук</TableCell>
+                            <TableCell align="right">Контакты</TableCell>
+                            <TableCell align="right">Соцсети</TableCell>
                             <TableCell align="right">Рабочие часы</TableCell>
                             <TableCell align="right">Город</TableCell>
                         </TableRow>
@@ -46,16 +43,28 @@ const CoffeePageTable = ({coffee}) => {
                         {coffee && coffee.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    <a href={process.env.REACT_APP_BASE_URL+ row.avatar}><img className={classes.table_img} src={process.env.REACT_APP_BASE_URL+ row.avatar}/></a>
+                                    {row.avatar_public ? <a href={process.env.REACT_APP_BASE_URL + row.avatar_public}>
+                                        <img className={classes.table_img}
+                                             src={process.env.REACT_APP_BASE_URL + row.avatar_public}/>
+                                    </a>
+                                        :
+                                        <img className={classes.table_img}
+                                             src="./img/template/no-image.png"/>
+                                    }
                                 </TableCell>
                                 <TableCell align="right">{row.name}</TableCell>
-                                <TableCell align="right">{row.address}</TableCell>
-                                <TableCell align="right">{row.address}</TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
-                                <TableCell align="right">{row.phone}</TableCell>
-                                <TableCell align="right">{row.instagram}</TableCell>
-                                <TableCell align="right">{row.vk}</TableCell>
-                                <TableCell align="right">{row.fb}</TableCell>
+                                <TableCell align="right">
+                                  {row.address}
+
+                                </TableCell> <TableCell align="right">
+                                    Телефон: {row.phone}
+                                    Email: {row.email}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {row.instagram}
+                                    {row.vk}
+                                    {row.fb}
+                                </TableCell>
                                 <TableCell align="right">{row.working_time}</TableCell>
                                 <TableCell align="right">{row.city_id}</TableCell>
                             </TableRow>

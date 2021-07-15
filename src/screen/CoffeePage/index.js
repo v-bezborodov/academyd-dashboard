@@ -54,20 +54,20 @@ const CoffeePage = () => {
     const onSubmit = async (data) => {
         if (!data) return
 
-        await dispatch(CoffeePostThunk(data.name,
-            data.address,
-            data.email,
-            data.phone,
-            // avatar.value,
-            data.instagram,
-            data.fb,
-            data.vk,
-            data.working_time,
-            data.city_id)
-        );
+        const formData = new FormData();
+        formData.append('avatar', data.avatar[0]);
+        formData.append('name', data.name);
+        formData.append('address', data.address);
+        formData.append('email', data.email);
+        formData.append('phone', data.phone);
+        formData.append('instagram', data.instagram);
+        formData.append('fb', data.fb);
+        formData.append('vk', data.vk);
+        formData.append('working_time', data.working_time);
+        formData.append('city_id', data.city_id);
 
+        await dispatch(CoffeePostThunk(formData));
         await reset()
-
         await dispatch(CoffeeGetThunk())
     }
 
@@ -78,16 +78,16 @@ const CoffeePage = () => {
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField {...register("name", { required: 'Не может быть пустым' })}
-                            id="name"
-                            label="Название"
-                            error={errors.name}
-                            helperText={errors?.name?.message && errors.name.message} />
+                                   id="name"
+                                   label="Название"
+                                   error={errors.name}
+                                   helperText={errors?.name?.message && errors.name.message} />
 
                         <TextField {...register("address", { required: 'Не может быть пустым' })}
-                            id="address"
-                            label="Адрес"
-                            error={errors.address}
-                            helperText={errors?.address?.message && errors.address.message} />
+                                   id="address"
+                                   label="Адрес"
+                                   error={errors.address}
+                                   helperText={errors?.address?.message && errors.address.message} />
 
                         <TextField {...register("email",
                             {
@@ -97,11 +97,11 @@ const CoffeePage = () => {
                                     message: 'Неправильный формат email',
                                 },
                             })}
-                            id="email"
-                            label="E-mail"
-                            type="email"
-                            error={errors.email}
-                            helperText={errors?.email?.message && errors.email.message} />
+                                   id="email"
+                                   label="E-mail"
+                                   type="email"
+                                   error={errors.email}
+                                   helperText={errors?.email?.message && errors.email.message} />
 
                         <TextField {...register("phone",
                             {
@@ -111,38 +111,39 @@ const CoffeePage = () => {
                                     message: 'Навильный формат',
                                 },
                             })}
-                            id="phone"
-                            label="Телефон"
-                            error={errors.phone}
-                            helperText={errors?.phone?.message && errors.phone.message} />
+                                   id="phone"
+                                   label="Телефон"
+                                   error={errors.phone}
+                                   helperText={errors?.phone?.message && errors.phone.message} />
 
                         <TextField {...register("instagram", { required: 'Не может быть пустым' })}
-                            id="instagram"
-                            label="instagram"
-                            error={errors.instagram}
-                            helperText={errors?.instagram?.message && errors.instagram.message} />
+                                   id="instagram"
+                                   label="instagram"
+                                   error={errors.instagram}
+                                   helperText={errors?.instagram?.message && errors.instagram.message} />
 
                         <TextField {...register("fb", { required: 'Не может быть пустым' })}
-                            id="fb"
-                            label="Facebook"
-                            error={errors.fb}
-                            helperText={errors?.fb?.message && errors.fb.message} />
+                                   id="fb"
+                                   label="Facebook"
+                                   error={errors.fb}
+                                   helperText={errors?.fb?.message && errors.fb.message} />
 
                         <TextField {...register("vk", { required: 'Не может быть пустым' })}
-                            id="vk"
-                            label="Вконтакте"
-                            error={errors.vk}
-                            helperText={errors?.vk?.message && errors.vk.message} />
+                                   id="vk"
+                                   label="Вконтакте"
+                                   error={errors.vk}
+                                   helperText={errors?.vk?.message && errors.vk.message} />
 
                         <TextField {...register("working_time", { required: 'Не может быть пустым' })}
-                            id="working_time"
-                            label="Время работы"
-                            error={errors.working_time}
-                            helperText={errors?.working_time?.message && errors.working_time.message} />
+                                   id="working_time"
+                                   label="Время работы"
+                                   error={errors.working_time}
+                                   helperText={errors?.working_time?.message && errors.working_time.message} />
 
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-controlled-open-select-label">Город</InputLabel>
                             <Select
+                                {...register("city_id", { required: 'Город не может быть пустым' })}
                                 labelId="demo-controlled-open-select-label"
                                 id="city_id"
                                 open={openCity_id}
@@ -150,12 +151,17 @@ const CoffeePage = () => {
                                 onOpen={handleOpen}
                                 value={city_id}
                                 onChange={handleChangeCity_id}
+                                error={errors.city_id}
+                                helperText={errors?.city_id?.message && errors.city_id.message}
                             >
                                 {city?.map((row) => (
                                     <MenuItem value={row.id}>{row.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
+
+                        <input {...register("avatar")} type="file" name="avatar" />
+
                         <br />
                         <Button
                             variant="contained"
