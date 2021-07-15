@@ -73,7 +73,7 @@ const QuestionsPageNew = () => {
             "type": typeQuestions,
         }
 
-        await dispatch(QuestionsPostThunk(data.weight, data.value, levelQuestions, bodys));
+        await dispatch(QuestionsPostThunk(data.title, data.weight, data.value, levelQuestions, bodys));
         await reset();
         await dispatch(BlogCategoryThunk());
         history.push('/all-questions')
@@ -102,7 +102,12 @@ const QuestionsPageNew = () => {
                                 <MenuItem value="openQuestions">Вопрос с открытым ответом</MenuItem>
                             </Select>
                         </FormControl>
-
+                        <TextField {...register("title", { required: 'Не может быть пустым' })}
+                            id="title"
+                            label="Текст вопроса"
+                            error={errors.title}
+                            helperText={errors?.title?.message && errors.title.message}
+                        />
                         <TextField {...register("weight", { required: 'Не может быть пустым' })}
                             id="weight"
                             label="Цена вопроса"

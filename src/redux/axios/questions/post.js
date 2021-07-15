@@ -1,6 +1,7 @@
 import questionsInstance from './instance'
 
 const QuestionsPost = (
+    title,
     weight,
     time,
     levelQuestions,
@@ -10,6 +11,7 @@ const QuestionsPost = (
         questionsInstance.post(
             'api/education/question',
             {
+                title: title,
                 weight: weight,
                 time: time,
                 level: levelQuestions,

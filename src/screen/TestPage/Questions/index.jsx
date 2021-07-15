@@ -35,7 +35,7 @@ const QuestionsPage = () => {
                 <p>Все вопросы</p>
                 {questions?.map((row) => (
                     <div>
-                        {row.id}
+                        {row.title}
                     </div>
                 ))}
             </div>
