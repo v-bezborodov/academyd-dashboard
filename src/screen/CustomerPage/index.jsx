@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
 import FormattedInputs from "../../components/elements/phoneInput";
 import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import {BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData} from "./index.styled";
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "./index.styled";
 import SmsIcon from "@material-ui/icons/Sms";
 import DenseTable from "../../components/elements/table";
-import {useDispatch, useSelector} from "react-redux";
-import {CustomerGetThunk, СustomerRegistrationThunk} from "../../redux/thunk/customer";
+import { useDispatch, useSelector } from "react-redux";
+import { CustomerGetThunk, СustomerRegistrationThunk } from "../../redux/thunk/customer";
 import TextField from "@material-ui/core/TextField";
+import { useForm } from "react-hook-form";
 
 
 const CastomerPage = () => {
@@ -17,19 +18,33 @@ const CastomerPage = () => {
     const dispatch = useDispatch()
     const [phoneDat, setPhoneData] = useState()
     const customer = useSelector(store => store.customer.customer)
+    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
-    const cubCustomerNew = () => {
-        let customerPhoneData = {
-            phone : phoneDat
-        }
-        dispatch(СustomerRegistrationThunk(customerPhoneData))
+
+    const onSubmit = async (data) => {
+        if (!data) return
+        await dispatch(СustomerRegistrationThunk(data.phone))
+        // avatar.value, 
+        await reset();
+        await dispatch(CustomerGetThunk())
     }
+
+    const onSubmitResetPass = async (data) => {
+        if (!data) return
+        await dispatch(СustomerRegistrationThunk(data.phone))
+        // avatar.value, 
+        await reset();
+        await dispatch(CustomerGetThunk())
+    }
+
+    
+
 
 
     useEffect(() => {
-        if(localStorage.accessToken){
+        if (localStorage.accessToken) {
             dispatch(CustomerGetThunk())
-        }else {
+        } else {
             history.push('/')
         }
     }, [])
@@ -37,38 +52,53 @@ const CastomerPage = () => {
 
     return (
         <div className="container">
-            <Menu/>
+            <Menu />
             <div>
                 <BlockGridItem33>
                     <p>Добавить сотрудника</p>
                     <BlockGridItemData>
-                        <TextField onChange={(event)=>setPhoneData(event.target.value )}  id="Phone" label="Login" />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={cubCustomerNew}
-                            endIcon={<SmsIcon/>}>
-                            Отправить пароль
-                        </Button>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <TextField {...register("phone", { required: 'Не может быть пустым' })}
+                                id="phone"
+                                label="Название"
+                                error={errors.phone}
+                                helperText={errors?.phone?.message && errors.phone.message}
+                            />
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                Добавить категорию
+                            </Button>
+                        </form>
                     </BlockGridItemData>
                 </BlockGridItem33>
                 <BlockGridItem33>
                     <p>Восстановить пароль юзера</p>
                     <BlockGridItemData>
-                        <TextField onChange={(event)=>setPhoneData(event.target.value )}  id="Phone" label="Login" />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={cubCustomerNew}
-                            endIcon={<SmsIcon/>}>
-                            Отправить пароль
-                        </Button>
+
+                        <form onSubmit={handleSubmit(onSubmitResetPass)}>
+                            <TextField {...register("phone", { required: 'Не может быть пустым' })}
+                                id="phone"
+                                label="Название"
+                                error={errors.phone}
+                                helperText={errors?.phone?.message && errors.phone.message}
+                            />
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                Добавить категорию
+                            </Button>
+                        </form>
                     </BlockGridItemData>
                 </BlockGridItem33>
                 <BlockGridItem100>
                     <p>Все сотрудники</p>
                     <DenseTable rows={customer} />
-                    
+
                 </BlockGridItem100>
             </div>
 

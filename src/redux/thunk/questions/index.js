@@ -19,6 +19,7 @@ export const  QuestionsGetThunk = () => {
 };
 
 export const  QuestionsPostThunk = (
+    title,
     weight,
     time,
     levelQuestions,
@@ -27,6 +28,7 @@ export const  QuestionsPostThunk = (
     return dispatch => {
         dispatch(
             QuestionsPost(
+                title,
                 weight,
                 time,
                 levelQuestions,

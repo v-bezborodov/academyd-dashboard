@@ -31,6 +31,13 @@ const TestPage = () => {
                 >
                     Вопросы к тесам
                 </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => history.push('/all-test/new')}
+                >
+                    Создать тест
+                </Button>
                 <p>Все тесты</p>
                 {tests?.map((row) => (
                     <div>

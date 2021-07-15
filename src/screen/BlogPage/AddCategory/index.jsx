@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from '../../../components/menu';
 import { BlogCategoryPostThunk, BlogCategoryThunk } from '../../../redux/thunk/blog';
-
+import { useForm } from "react-hook-form";
 
 const CategoryPage = () => {
     let history = useHistory()
     const dispatch = useDispatch()
     const blogCategory = useSelector(store => store.blog.blogCategory)
+
+    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
     useEffect(() => {
         if (localStorage.accessToken) {
@@ -19,26 +21,29 @@ const CategoryPage = () => {
         }
     }, [])
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
 
-        const { title,
-            // avatar, 
-        } = event.target.elements
-        dispatch(BlogCategoryPostThunk(title.value
+    const onSubmit = async (data) => {
+        if (!data) return
+        await dispatch(BlogCategoryPostThunk(data.title
             // avatar.value, 
         ));
-        
-        dispatch(BlogCategoryThunk())
+        await reset();
+        await dispatch(BlogCategoryThunk());
     }
+
 
     return (
         <div className="container">
             <Menu/>
             <div>
                 <div>
-                    <form onSubmit={handleSubmit}>
-                        <TextField id="title" label="Название" />
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <TextField {...register("title", { required: 'Не может быть пустым' })}
+                                    id="title"
+                                    label="Название"
+                                    error={errors.title}
+                                    helperText={errors?.title?.message&&errors.title.message} 
+                                     />
                         <Button
                             variant="contained"
                             color="primary"

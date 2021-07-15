@@ -53,14 +53,15 @@ export const  BlogCategoryPostThunk = (title) => {
 };
 
 export const BlogPostThunk = (title , body, 
-    img, 
-    time_read, is_comment, ) => {
+    // img, 
+    time_read, is_comment, category) => {
     return dispatch => {
         dispatch(
             BlogPost(
                 title , body, 
-                img, 
+                // img, 
                 time_read, is_comment, 
+                category,
                 res => {
                     toast.success("Категория добавлена")
                 },
