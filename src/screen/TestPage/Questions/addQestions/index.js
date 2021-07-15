@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import Menu from '../../../../components/menu';
 import { BlogCategoryPostThunk, BlogCategoryThunk, BlogPostThunk } from '../../../../redux/thunk/blog';
 import { QuestionsPostThunk } from '../../../../redux/thunk/questions';
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -18,7 +19,8 @@ const QuestionsPageNew = () => {
     let history = useHistory()
     const dispatch = useDispatch()
     const [openTypeQuestions, setOpenTypeQuestions] = React.useState(false);
-    const [typeQuestions, setTypeQuestions] = React.useState('');
+    const [typeQuestions, setTypeQuestions] = React.useState('textQuestions');
+    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
 
     const handleClose = () => {
@@ -61,28 +63,20 @@ const QuestionsPageNew = () => {
     }, [])
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
 
-        const { weight, time, numberCorrect, questions1, questions2, questions3, questions4 } = event.target.elements
-
-        if(!numberCorrect || !numberCorrect.value){
-            return
-        }
+    const onSubmit = async (data) => {
+        if (!data) return
 
         const bodys = {
-            "correct": numberCorrect.value, 
-            "questions": {"1": questions1.value, "2": questions2.value, "3": questions3.value, "4": questions4.value},
-            "type" : typeQuestions,
+            "correct": data.numberCorrect,
+            "questions": { "1": data.questions1, "2": data.questions2, "3": data.questions3, "4": data.questions4 },
+            "type": typeQuestions,
         }
 
-        dispatch(QuestionsPostThunk(
-            weight.value,
-            time.value,
-            levelQuestions,
-            bodys
-        ));
-
+        await dispatch(QuestionsPostThunk(data.weight, data.value, levelQuestions, bodys));
+        await reset();
+        await dispatch(BlogCategoryThunk());
+        history.push('/all-questions')
     }
 
     return (
@@ -90,7 +84,7 @@ const QuestionsPageNew = () => {
             <Menu />
             <div>
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-controlled-open-select-label">Тип вопроса</InputLabel>
@@ -109,9 +103,18 @@ const QuestionsPageNew = () => {
                             </Select>
                         </FormControl>
 
-
-                        <TextField id="weight" label="Цена вопроса" />
-                        <TextField id="time" label="Время на прохождение вопроса" />
+                        <TextField {...register("weight", { required: 'Не может быть пустым' })}
+                            id="weight"
+                            label="Цена вопроса"
+                            error={errors.weight}
+                            helperText={errors?.weight?.message && errors.weight.message}
+                        />
+                        <TextField {...register("time", { required: 'Не может быть пустым' })}
+                            id="time"
+                            label="Время на прохождение"
+                            error={errors.time}
+                            helperText={errors?.time?.message && errors.time.message}
+                        />
 
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-controlled-open-select-label">Уровень вопроса</InputLabel>
@@ -129,29 +132,82 @@ const QuestionsPageNew = () => {
                                 <MenuItem value="BLACK">Максимальный уровень</MenuItem>
                             </Select>
                         </FormControl>
-
                         {
-                            typeQuestions === "imgQuestions" ?
+                            typeQuestions !== "openQuestions"  ?
                                 <>
-                                        <TextField id="questions1" label="Изображение ответа 1" />
-                                        <TextField id="questions2" label="Изображение ответа 2" />
-                                        <TextField id="questions3" label="Изображение ответа 3" />
-                                        <TextField id="questions4" label="Изображение ответа 4" />
-                                    <TextField id="numberCorrect" label="Номер правильного ответа" />
+                                    <TextField id="questions1" label=
+                                        {
+                                            typeQuestions === "imgQuestions" ?
+                                                "Изображение ответа 1"
+                                                :
+                                                typeQuestions === "textQuestions" ?
+                                                    "Ответ 1"
+                                                    :
+                                                    <></>
+                                        }
+                                        {...register("questions1", { required: 'Не может быть пустым' })}
+                                        error={errors.questions1}
+                                        helperText={errors?.questions1?.message && errors.questions1.message}
+                                    />
+                                    <TextField id="questions2" label=
+                                        {
+                                            typeQuestions === "imgQuestions" ?
+                                                "Изображение ответа 2"
+                                                :
+                                                typeQuestions === "textQuestions" ?
+                                                    "Ответ 2"
+                                                    :
+                                                    <></>
+                                        }
+                                        {...register("questions2", { required: 'Не может быть пустым' })}
+                                        error={errors.questions2}
+                                        helperText={errors?.questions2?.message && errors.questions2.message}
+                                    />
+                                    <TextField id="questions3" label=
+                                        {
+                                            typeQuestions === "imgQuestions" ?
+                                                "Изображение ответа 3"
+                                                :
+                                                typeQuestions === "textQuestions" ?
+                                                    "Ответ 3"
+                                                    :
+                                                    <></>
+                                        }
+                                        {...register("questions3", { required: 'Не может быть пустым' })}
+                                        error={errors.questions3}
+                                        helperText={errors?.questions3?.message && errors.questions3.message}
+                                    />
+                                    <TextField id="questions4" label=
+                                        {
+                                            typeQuestions === "imgQuestions" ?
+                                                "Изображение ответа 4"
+                                                :
+                                                typeQuestions === "textQuestions" ?
+                                                    "Ответ 4"
+                                                    :
+                                                    <></>
+                                        }
+                                        {...register("questions4", { required: 'Не может быть пустым' })}
+                                        error={errors.questions4}
+                                        helperText={errors?.questions4?.message && errors.questions4.message}
+                                    />
+                                    <TextField id="numberCorrect" label=
+                                        {
+                                            typeQuestions === "imgQuestions" ?
+                                                "Правильное изображение"
+                                                :
+                                                typeQuestions === "textQuestions" ?
+                                                    "Правильный ответ"
+                                                    :
+                                                    <></>
+                                        }
+                                        {...register("numberCorrect", { required: 'Не может быть пустым' })}
+                                        error={errors.numberCorrect}
+                                        helperText={errors?.numberCorrect?.message && errors.numberCorrect.message}
+                                    />
                                 </>
                                 :
-                                typeQuestions === "textQuestions" ?
-                                    <>
-                                        <TextField id="questions1" label="Ответ 1" />
-                                        <TextField id="questions2" label="Ответ 2" />
-                                        <TextField id="questions3" label="Ответ 3" />
-                                        <TextField id="questions4" label="Ответ 4" />
-                                        <TextField id="numberCorrect" label="Номер правильного ответа" />
-                                    </>
-                                    :
-                                    <>
-                                        <p>Ответ будет открытый в поле ввода</p>
-                                    </>
+                                <></>
                         }
                         <Button
                             variant="contained"

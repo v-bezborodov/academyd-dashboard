@@ -35,9 +35,7 @@ const QuestionsPage = () => {
                 <p>Все вопросы</p>
                 {questions?.map((row) => (
                     <div>
-                        <img src={row.img_public} />
-                        {row.title}
-                        {row.body}
+                        {row.id}
                     </div>
                 ))}
             </div>
