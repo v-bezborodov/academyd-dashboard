@@ -1,9 +1,9 @@
-import coffeeInstance from "./instance"
+import customerInstance from './instance'
 
-const coffeeGet = (city, callbackSuccess, callbackError) => {
+const CustomerShow = (id, callbackSuccess, callbackError) => {
     return async dispatch => {
-        coffeeInstance.get(
-            'api/coffeeshop'+'?city='+city
+        customerInstance.get(
+            'api/user/'+id
         )
             .then((res) => {
                 if (res.data) typeof callbackSuccess === 'function' && callbackSuccess(res)
@@ -15,4 +15,4 @@ const coffeeGet = (city, callbackSuccess, callbackError) => {
 
 }
 
-export default coffeeGet;
+export default CustomerShow;

@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-d
 import LoginPage from "./screen/logIn";
 import { ToastContainer } from 'react-toastify'
 import Home from "./screen/HomePage";
-import {useEffect} from "react";
 import ChekTestPage from "./screen/CheckTestPage";
 import BlogPage from "./screen/BlogPage";
 import TestPage from "./screen/TestPage";
@@ -17,6 +16,7 @@ import AddPostPage from './screen/BlogPage/AddPost';
 import QuestionsPage from './screen/TestPage/Questions';
 import QuestionsPageNew from './screen/TestPage/Questions/addQestions';
 import AddPostTest from './screen/TestPage/addTest';
+import CustomerEditPage from "./screen/CustomerPage/CustomerEditPage";
 
 function App() {
 
@@ -36,6 +36,7 @@ function App() {
                           <Route path="/all-test" exact component={TestPage}/>
                           <Route path="/all-questions" exact component={QuestionsPage}/>
                           <Route path="/all-customer" exact component={CastomerPage}/>
+                          <Route path="/all-customer/:id" exact component={CustomerEditPage}/>
                           <Route path="/all-city" exact component={CityPage}/>
                           <Route path="/all-coffee" exact component={CoffeePage}/>
                           <Route path="/blog/category" exact component={CategoryPage}/>

@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
     table: {
@@ -34,6 +35,7 @@ export default function DenseTable({rows}) {
                         <TableCell align="right">fb</TableCell>
                         <TableCell align="right">vk</TableCell>
                         <TableCell align="right">status</TableCell>
+                        <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -49,6 +51,9 @@ export default function DenseTable({rows}) {
                             <TableCell align="right">{row.fb}</TableCell>
                             <TableCell align="right">{row.vk}</TableCell>
                             <TableCell align="right">{row.status}</TableCell>
+                            <TableCell align="right">
+                                <Link to={"/all-customer/"+row.id}>Изменить</Link>
+                            </TableCell>
                         </TableRow>
                     ))
                     :

@@ -66,7 +66,7 @@ const CoffeePageTable = ({coffee}) => {
                                     {row.fb}
                                 </TableCell>
                                 <TableCell align="right">{row.working_time}</TableCell>
-                                <TableCell align="right">{row.city_id}</TableCell>
+                                <TableCell align="right">{row?.city?.name && row.city.name}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

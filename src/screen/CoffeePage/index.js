@@ -10,7 +10,7 @@ import { FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
 
-import CoffeePageTable from "./table";
+import CoffeePageTable from "../../components/coffee-shop/table";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -27,7 +27,7 @@ const CoffeePage = () => {
     const [city_id, setCity_id] = React.useState('');
     const city = useSelector(store => store.city.city)
 
-    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const handleClose = () => {
         setOpenCity_id(false);
@@ -43,7 +43,7 @@ const CoffeePage = () => {
 
     useEffect(() => {
         if (localStorage.accessToken) {
-            dispatch(CoffeeGetThunk())
+            dispatch(CoffeeGetThunk(true))
             dispatch(CityGetThunk())
         } else {
             history.push('/')

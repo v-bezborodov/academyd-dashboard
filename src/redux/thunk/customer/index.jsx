@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { setCustomer } from '../../action/customer';
 import CustomerGet from '../../axios/customer/get';
 import CustomerRegistration from "../../axios/customer/post";
+import CustomerShow from "../../axios/customer/show";
 
 export const СustomerRegistrationThunk = dataPhone => {
     return dispatch => {
@@ -31,6 +32,25 @@ export const CustomerGetThunk = () => {
             CustomerGet(
                 res => {
                         dispatch(setCustomer(res.data))
+                },
+                error => {
+                    toast.error("Ошибка" + error)
+                    console.log("1" + error)
+                },
+            ),
+        );
+    };
+};
+
+
+export const CustomerShowThunk = (id) => {
+    return dispatch => {
+        dispatch(
+            CustomerShow(
+                id,
+                res => {
+                    // TODO
+                    // dispatch(setCustomer(res.data))
                 },
                 error => {
                     toast.error("Ошибка" + error)
