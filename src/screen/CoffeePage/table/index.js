@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     table: {
         tableLayout: 'fixed',
     },
+    table_img: {
+        width: '50px',
+        height:'auto'
+    },
   }));
 
 const CoffeePageTable = ({coffee}) => {
@@ -41,7 +45,9 @@ const CoffeePageTable = ({coffee}) => {
                     <TableBody>
                         {coffee && coffee.map((row) => (
                             <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">{row.avatar}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    <a href={process.env.REACT_APP_BASE_URL+ row.avatar}><img className={classes.table_img} src={process.env.REACT_APP_BASE_URL+ row.avatar}/></a>
+                                </TableCell>
                                 <TableCell align="right">{row.name}</TableCell>
                                 <TableCell align="right">{row.address}</TableCell>
                                 <TableCell align="right">{row.address}</TableCell>
