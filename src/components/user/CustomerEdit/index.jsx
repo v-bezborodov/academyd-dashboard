@@ -61,7 +61,7 @@ const CustomerEdit = ({ id }) => {
 
     return (
         <div>
-            {id}
+            Юзер {id}
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField {...register("name", { required: 'Не может быть пустым' })}

@@ -28,6 +28,7 @@ export default function DenseTable({rows}) {
             <Table className={classes.table} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
+                        <TableCell>Аватар</TableCell>
                         <TableCell>Телефон</TableCell>
                         <TableCell align="right">Имя</TableCell>
                         <TableCell align="right">E-mail</TableCell>
@@ -42,9 +43,15 @@ export default function DenseTable({rows}) {
                     {rows ? 
                     rows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
-                                {row.phone}
+
+                            <TableCell component="th" scope="row" >{row?.avatar ?
+                                <a href={row.avatar}><img src={row.avatar}/></a>
+                                :
+                                <img className={classes.table_img}
+                                     src="./img/template/no-image.png"/>
+                            }
                             </TableCell>
+                            <TableCell align="right">{row.phone}</TableCell>
                             <TableCell align="right">{row.name}</TableCell>
                             <TableCell align="right">{row.email}</TableCell>
                             <TableCell align="right">{row.instagram}</TableCell>

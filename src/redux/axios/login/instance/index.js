@@ -12,7 +12,7 @@ if (localStorage.accessToken) {
 
 
 const customerInstance = axios.create({
-    baseURL: 'https://coffee.slawek.dev/',
+    baseURL: process.env.REACT_APP_BASE_URL,
 })
 
 export default customerInstance

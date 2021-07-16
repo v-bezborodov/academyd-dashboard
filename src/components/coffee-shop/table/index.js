@@ -43,9 +43,9 @@ const CoffeePageTable = ({coffee}) => {
                         {coffee && coffee.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {row.avatar_public ? <a href={"https://coffee.slawek.dev/" + row.avatar_public}>
+                                    {row.avatar_public ? <a href={process.env.REACT_APP_BASE_URL + row.avatar_public}>
                                         <img className={classes.table_img}
-                                             src={"https://coffee.slawek.dev/" + row.avatar_public}/>
+                                             src={process.env.REACT_APP_BASE_URL + row.avatar_public}/>
                                     </a>
                                         :
                                         <img className={classes.table_img}

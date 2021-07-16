@@ -7,6 +7,7 @@ import CustomerRegistration from "../../axios/customer/post";
 import CustomerPut from '../../axios/customer/put';
 import CustomerPutPositionCoffee from '../../axios/customer/putPositionCoffee';
 import CustomerShow from "../../axios/customer/show";
+import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
 
 export const СustomerRegistrationThunk = dataPhone => {
     return dispatch => {
@@ -85,12 +86,15 @@ export const CustomerPutThunk = (data, id) => {
     return dispatch => {
         dispatch(
             CustomerPut(
-                data, id,
+                data,
+                id,
                 res => {
                     toast.success('Сотрудник обновлен')
                 },
                 error => {
-                    toast.error("Ошибка" + error)
+                    // console.log(error)
+                    notifyToast(retrieveErrorFromApi(error), 'error');
+                    // toast.error("Ошибка" + error)
                 },
             ),
         );
