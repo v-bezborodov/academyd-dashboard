@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
 import { BlogGetThunk } from '../../redux/thunk/blog';
 import { CityGetThunk, CityPostThunk } from '../../redux/thunk/city';
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../CustomerPage/index.styled";
+import CityPageTable from './table';
 
 
 const CityPage = () => {
@@ -34,6 +36,9 @@ const CityPage = () => {
             <Menu />
             <div>
                 <div>
+                <BlockGridItem33>
+                    <p>Добавить сотрудника</p>
+                    <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField {...register("name", { required: 'Не может быть пустым' })}
                             id="name"
@@ -49,13 +54,11 @@ const CityPage = () => {
                             Добавить город
                         </Button>
                     </form>
+                    </BlockGridItemData>
+                    </BlockGridItem33>
                 </div>
                 <p>Города</p>
-                {city?.map((row) => (
-                    <div>
-                        {row.name}
-                    </div>
-                ))}
+                <CityPageTable data={city}/>
             </div>
         </div>
     )

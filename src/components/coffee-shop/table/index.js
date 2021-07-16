@@ -34,7 +34,7 @@ const CoffeePageTable = ({coffee}) => {
                             <TableCell>Название</TableCell>
                             <TableCell align="right">Адрес</TableCell>
                             <TableCell align="right">Контакты</TableCell>
-                            <TableCell align="right">Соцсети</TableCell>
+                            {/* <TableCell align="right">Соцсети</TableCell> */}
                             <TableCell align="right">Рабочие часы</TableCell>
                             <TableCell align="right">Город</TableCell>
                         </TableRow>
@@ -43,9 +43,9 @@ const CoffeePageTable = ({coffee}) => {
                         {coffee && coffee.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {row.avatar_public ? <a href={process.env.REACT_APP_BASE_URL + row.avatar_public}>
+                                    {row.avatar_public ? <a href={"https://coffee.slawek.dev/" + row.avatar_public}>
                                         <img className={classes.table_img}
-                                             src={process.env.REACT_APP_BASE_URL + row.avatar_public}/>
+                                             src={"https://coffee.slawek.dev/" + row.avatar_public}/>
                                     </a>
                                         :
                                         <img className={classes.table_img}
@@ -60,11 +60,11 @@ const CoffeePageTable = ({coffee}) => {
                                     Телефон: {row.phone}
                                     Email: {row.email}
                                 </TableCell>
-                                <TableCell align="right">
+                                {/* <TableCell align="right">
                                     {row.instagram}
                                     {row.vk}
                                     {row.fb}
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell align="right">{row.working_time}</TableCell>
                                 <TableCell align="right">{row?.city?.name && row.city.name}</TableCell>
                             </TableRow>

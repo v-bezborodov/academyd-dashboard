@@ -1,10 +1,10 @@
-import blogInstance from './instance'
+import cityInstance from './instance'
 
-const BlogPost = (FormData, callbackSuccess, callbackError) => {
+const cityPost = (name, callbackSuccess, callbackError) => {
     return async dispatch => {
-        blogInstance.post(
-            'api/blog/post',
-            FormData,
+        cityInstance.post(
+            'api/city',
+            {name: name}
         )
             .then((res) => {
                 if (res.data) typeof callbackSuccess === 'function' && callbackSuccess(res)
@@ -16,4 +16,4 @@ const BlogPost = (FormData, callbackSuccess, callbackError) => {
 
 }
 
-export default BlogPost;
+export default cityPost;

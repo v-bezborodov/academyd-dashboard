@@ -36,11 +36,11 @@ export const  BlogCategoryThunk = () => {
 };
 
 
-export const  BlogCategoryPostThunk = (title) => {
+export const  BlogCategoryPostThunk = (formData) => {
     return dispatch => {
         dispatch(
             BlogPostCategory(
-                title,
+                formData,
                 res => {
                     toast.success("Категория добавлена")
                 },
@@ -52,16 +52,11 @@ export const  BlogCategoryPostThunk = (title) => {
     };
 };
 
-export const BlogPostThunk = (title , body, 
-    // img, 
-    time_read, is_comment, category) => {
+export const BlogPostThunk = (FormData) => {
     return dispatch => {
         dispatch(
             BlogPost(
-                title , body, 
-                // img, 
-                time_read, is_comment, 
-                category,
+                FormData,
                 res => {
                     toast.success("Категория добавлена")
                 },

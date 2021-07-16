@@ -40,7 +40,10 @@ export const BlockGridItem100 = styled.div `
 `
 
 export const BlockGridItemData = styled.div `
-  display: grid;
+
+  form {
+    display: grid;
   gap: 30px;
+  }
 `
 

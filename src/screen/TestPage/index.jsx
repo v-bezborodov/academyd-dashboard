@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
 import { TestsGetThunk } from '../../redux/thunk/tests';
+import TestPageTable from './table';
 
 
 const TestPage = () => {
@@ -39,13 +40,7 @@ const TestPage = () => {
                     Создать тест
                 </Button>
                 <p>Все тесты</p>
-                {tests?.map((row) => (
-                    <div>
-                        <img src={row.img_public} />
-                        {row.title}
-                        {row.body}
-                    </div>
-                ))}
+                <TestPageTable data={tests}/>
             </div>
         </div>
     )

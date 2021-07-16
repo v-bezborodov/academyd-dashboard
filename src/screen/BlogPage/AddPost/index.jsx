@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import Menu from '../../../components/menu';
 import { BlogCategoryPostThunk, BlogCategoryThunk, BlogPostThunk } from '../../../redux/thunk/blog';
 import { useForm } from "react-hook-form";
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../../CustomerPage/index.styled";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -58,9 +59,21 @@ const AddPostPage = () => {
 
     const onSubmit = async (data) => {
         if (!data) return
-        await dispatch(BlogPostThunk(data.title, data.body, 
-            // data.img, 
-            data.time_read, is_comment, categoryId));
+
+        const dataForm = new FormData();
+        dataForm.append('title', data.title);
+        dataForm.append('body', data.body);
+        dataForm.append('img', data.img[0]);
+        // dataForm.append('created_by', data.created_by);
+        dataForm.append('time_read', data.time_read);
+        dataForm.append('is_published', true);
+        dataForm.append('is_comment', data.is_comment);
+        // dataForm.append('category_id', data.category);
+
+        await dispatch(BlogPostThunk(dataForm));
+
+
+
         await reset();
         await dispatch(BlogCategoryThunk());
         history.push('/blog')
@@ -72,58 +85,63 @@ const AddPostPage = () => {
             <Menu />
             <div>
                 <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <TextField {...register("title", { required: 'Не может быть пустым' })}
-                            id="title"
-                            label="Название"
-                            error={errors.title}
-                            helperText={errors?.title?.message && errors.title.message}
-                        />
-                        <TextField {...register("body", { required: 'Не может быть пустым' })}
-                            id="body"
-                            label="Тело поста"
-                            error={errors.body}
-                            helperText={errors?.body?.message && errors.body.message}
-                        />
-                        <input type="file" id="img" label="img" />
-                        <TextField {...register("time_read", { required: 'Не может быть пустым' })}
-                            id="time_read"
-                            label="Время чтения"
-                            error={errors.time_read}
-                            helperText={errors?.time_read?.message && errors.time_read.message}
-                        />
-                        <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-controlled-open-select-label">Уровень вопроса</InputLabel>
-                            <Select
-                                labelId="demo-controlled-open-select-label"
-                                id="level"
-                                open={openCategoryId}
-                                onClose={handleCloseCategoryId}
-                                onOpen={handleOpenCategoryId}
-                                value={categoryId}
-                                onChange={handleChangeCategoryId}
-                            >
-                                {blogCategory?.map((row) => (
-                                        <MenuItem value={row.id}>{row.title}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <CheckBox
-                            id="is_comment"
-                            defaultChecked
-                            color="primary"
-                            inputProps={{ 'aria-label': 'secondary checkbox' }}
-                            checked={is_comment}
-                            onChange={handleChange}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Создать пост
-                        </Button>
-                    </form>
+                    <BlockGridItem33>
+                        <p>Добавить новый пост</p>
+                        <BlockGridItemData>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <TextField {...register("title", { required: 'Не может быть пустым' })}
+                                    id="title"
+                                    label="Название"
+                                    error={errors.title}
+                                    helperText={errors?.title?.message && errors.title.message}
+                                />
+                                <TextField {...register("body", { required: 'Не может быть пустым' })}
+                                    id="body"
+                                    label="Тело поста"
+                                    error={errors.body}
+                                    helperText={errors?.body?.message && errors.body.message}
+                                />
+                                <input {...register("img")} type="file" name="img" />
+                                <TextField {...register("time_read", { required: 'Не может быть пустым' })}
+                                    id="time_read"
+                                    label="Время чтения"
+                                    error={errors.time_read}
+                                    helperText={errors?.time_read?.message && errors.time_read.message}
+                                />
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel id="demo-controlled-open-select-label">Уровень вопроса</InputLabel>
+                                    <Select
+                                        labelId="demo-controlled-open-select-label"
+                                        id="level"
+                                        open={openCategoryId}
+                                        onClose={handleCloseCategoryId}
+                                        onOpen={handleOpenCategoryId}
+                                        value={categoryId}
+                                        onChange={handleChangeCategoryId}
+                                    >
+                                        {blogCategory?.map((row) => (
+                                            <MenuItem value={row.id}>{row.title}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <CheckBox
+                                    id="is_comment"
+                                    defaultChecked
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                    checked={is_comment}
+                                    onChange={handleChange}
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Создать пост
+                                </Button>
+                            </form>
+                        </BlockGridItemData>
+                    </BlockGridItem33>
                 </div>
 
             </div>

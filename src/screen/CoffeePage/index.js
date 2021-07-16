@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
-
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../CustomerPage/index.styled";
 import CoffeePageTable from "../../components/coffee-shop/table";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,101 +76,107 @@ const CoffeePage = () => {
             <Menu />
             <div>
                 <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <TextField {...register("name", { required: 'Не может быть пустым' })}
-                                   id="name"
-                                   label="Название"
-                                   error={errors.name}
-                                   helperText={errors?.name?.message && errors.name.message} />
+                    <BlockGridItem33>
+                        <p>Добавить новую кофейню</p>
+                        <BlockGridItemData>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <TextField {...register("name", { required: 'Не может быть пустым' })}
+                                    id="name"
+                                    label="Название"
+                                    error={errors.name}
+                                    helperText={errors?.name?.message && errors.name.message} />
 
-                        <TextField {...register("address", { required: 'Не может быть пустым' })}
-                                   id="address"
-                                   label="Адрес"
-                                   error={errors.address}
-                                   helperText={errors?.address?.message && errors.address.message} />
+                                <TextField {...register("address", { required: 'Не может быть пустым' })}
+                                    id="address"
+                                    label="Адрес"
+                                    error={errors.address}
+                                    helperText={errors?.address?.message && errors.address.message} />
 
-                        <TextField {...register("email",
-                            {
-                                required: 'Не может быть пустым',
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: 'Неправильный формат email',
-                                },
-                            })}
-                                   id="email"
-                                   label="E-mail"
-                                   type="email"
-                                   error={errors.email}
-                                   helperText={errors?.email?.message && errors.email.message} />
+                                <TextField {...register("email",
+                                    {
+                                        required: 'Не может быть пустым',
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: 'Неправильный формат email',
+                                        },
+                                    })}
+                                    id="email"
+                                    label="E-mail"
+                                    type="email"
+                                    error={errors.email}
+                                    helperText={errors?.email?.message && errors.email.message} />
 
-                        <TextField {...register("phone",
-                            {
-                                required: 'Не может быть пустым',
-                                pattern: {
-                                    value: /^[0-9]{3,15}$/i,
-                                    message: 'Навильный формат',
-                                },
-                            })}
-                                   id="phone"
-                                   label="Телефон"
-                                   error={errors.phone}
-                                   helperText={errors?.phone?.message && errors.phone.message} />
+                                <TextField {...register("phone",
+                                    {
+                                        required: 'Не может быть пустым',
+                                        pattern: {
+                                            value: /^[0-9]{3,15}$/i,
+                                            message: 'Навильный формат',
+                                        },
+                                    })}
+                                    id="phone"
+                                    label="Телефон"
+                                    error={errors.phone}
+                                    helperText={errors?.phone?.message && errors.phone.message} />
 
-                        <TextField {...register("instagram", { required: 'Не может быть пустым' })}
-                                   id="instagram"
-                                   label="instagram"
-                                   error={errors.instagram}
-                                   helperText={errors?.instagram?.message && errors.instagram.message} />
+                                <TextField {...register("instagram", { required: 'Не может быть пустым' })}
+                                    id="instagram"
+                                    label="instagram"
+                                    error={errors.instagram}
+                                    helperText={errors?.instagram?.message && errors.instagram.message} />
 
-                        <TextField {...register("fb", { required: 'Не может быть пустым' })}
-                                   id="fb"
-                                   label="Facebook"
-                                   error={errors.fb}
-                                   helperText={errors?.fb?.message && errors.fb.message} />
+                                <TextField {...register("fb", { required: 'Не может быть пустым' })}
+                                    id="fb"
+                                    label="Facebook"
+                                    error={errors.fb}
+                                    helperText={errors?.fb?.message && errors.fb.message} />
 
-                        <TextField {...register("vk", { required: 'Не может быть пустым' })}
-                                   id="vk"
-                                   label="Вконтакте"
-                                   error={errors.vk}
-                                   helperText={errors?.vk?.message && errors.vk.message} />
+                                <TextField {...register("vk", { required: 'Не может быть пустым' })}
+                                    id="vk"
+                                    label="Вконтакте"
+                                    error={errors.vk}
+                                    helperText={errors?.vk?.message && errors.vk.message} />
 
-                        <TextField {...register("working_time", { required: 'Не может быть пустым' })}
-                                   id="working_time"
-                                   label="Время работы"
-                                   error={errors.working_time}
-                                   helperText={errors?.working_time?.message && errors.working_time.message} />
+                                <TextField {...register("working_time", { required: 'Не может быть пустым' })}
+                                    id="working_time"
+                                    label="Время работы"
+                                    error={errors.working_time}
+                                    helperText={errors?.working_time?.message && errors.working_time.message} />
 
-                        <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-controlled-open-select-label">Город</InputLabel>
-                            <Select
-                                {...register("city_id", { required: 'Город не может быть пустым' })}
-                                labelId="demo-controlled-open-select-label"
-                                id="city_id"
-                                open={openCity_id}
-                                onClose={handleClose}
-                                onOpen={handleOpen}
-                                value={city_id}
-                                onChange={handleChangeCity_id}
-                                error={errors.city_id}
-                                helperText={errors?.city_id?.message && errors.city_id.message}
-                            >
-                                {city?.map((row) => (
-                                    <MenuItem value={row.id}>{row.name}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel id="demo-controlled-open-select-label">Город</InputLabel>
+                                    <Select
+                                        {...register("city_id", { required: 'Город не может быть пустым' })}
+                                        labelId="demo-controlled-open-select-label"
+                                        id="city_id"
+                                        open={openCity_id}
+                                        onClose={handleClose}
+                                        onOpen={handleOpen}
+                                        value={city_id}
+                                        onChange={handleChangeCity_id}
+                                        error={errors.city_id}
+                                        helperText={errors?.city_id?.message && errors.city_id.message}
+                                    >
+                                        {city?.map((row) => (
+                                            <MenuItem value={row.id}>{row.name}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
 
-                        <input {...register("avatar")} type="file" name="avatar" />
+                                <input {...register("avatar")} type="file" name="avatar" />
 
-                        <br />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            >
-                                Создать новую кофейню
-                            </Button>
-                    </form>
+                                <br />
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Создать новую кофейню
+                                </Button>
+                            </form>
+                            </BlockGridItemData>
+                    </BlockGridItem33>
+                        
                 </div>
                 <p>Кофейни</p>
                 <CoffeePageTable {...{ coffee }} />

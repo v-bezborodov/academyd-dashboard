@@ -1,12 +1,10 @@
 import blogInstance from './instance'
 
-const BlogPostCategory = (title ,callbackSuccess, callbackError) => {
+const BlogPostCategory = (formData ,callbackSuccess, callbackError) => {
     return async dispatch => {
         blogInstance.post(
             'api/blog/category',
-            {
-                title: title,
-            }
+            formData
         )
             .then((res) => {
                 if (res.data) typeof callbackSuccess === 'function' && callbackSuccess(res)

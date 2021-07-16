@@ -7,6 +7,7 @@ import Menu from '../../../components/menu';
 import { BlogCategoryPostThunk, BlogCategoryThunk, BlogPostThunk } from '../../../redux/thunk/blog';
 import { useForm } from "react-hook-form";
 import { TestsPostThunk } from '../../../redux/thunk/tests';
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../../CustomerPage/index.styled";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -71,7 +72,12 @@ const AddPostTest = () => {
 
     const onSubmit = async (data) => {
         if (!data) return
-        await dispatch(TestsPostThunk(data.title, data.attempts, data.body, typeTest, levelQuestions));
+
+        const question_ids = [
+            data.question_ids,
+        ]
+
+        await dispatch(TestsPostThunk(data.title, data.attempts, data.body, typeTest, levelQuestions, question_ids));
         await reset();
         history.push('/all-test')
     }
@@ -82,6 +88,9 @@ const AddPostTest = () => {
             <Menu />
             <div>
                 <div>
+                <BlockGridItem33>
+                        <p>Добавить новый тест</p>
+                        <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField {...register("title", { required: 'Не может быть пустым' })}
                             id="title"
@@ -97,7 +106,7 @@ const AddPostTest = () => {
                         />
                         <TextField {...register("body", { required: 'Не может быть пустым' })}
                             id="body"
-                            label="тесты"
+                            label="Тело теста"
                             error={errors.body}
                             helperText={errors?.body?.message && errors.body.message}
                         />
@@ -132,6 +141,12 @@ const AddPostTest = () => {
                                 <MenuItem value="BLACK">Максимальный уровень</MenuItem>
                             </Select>
                         </FormControl>
+                        <TextField {...register("question_ids", { required: 'номера' })}
+                            id="question_ids"
+                            label="Номера вопросов"
+                            error={errors.question_ids}
+                            helperText={errors?.question_ids?.message && errors.question_ids.message}
+                        />
                         <Button
                             variant="contained"
                             color="primary"
@@ -140,6 +155,8 @@ const AddPostTest = () => {
                             Создать пост
                         </Button>
                     </form>
+                    </BlockGridItemData>
+                    </BlockGridItem33>
                 </div>
 
             </div>

@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 const CastomerPage = () => {
     let history = useHistory()
     const dispatch = useDispatch()
-    const [phoneDat, setPhoneData] = useState()
+    // const [phoneDat, setPhoneData] = useState()
     const customer = useSelector(store => store.customer.customer)
     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
@@ -29,15 +29,13 @@ const CastomerPage = () => {
         await dispatch(CustomerGetThunk())
     }
 
-    const onSubmitResetPass = async (data) => {
-        if (!data) return
-        await dispatch(СustomerRegistrationThunk(data.phone))
-        // avatar.value, 
-        await reset();
-        await dispatch(CustomerGetThunk())
-    }
-
-    
+    // const onSubmitResetPass = async (data) => {
+    //     if (!data) return
+    //     await dispatch(СustomerRegistrationThunk(data.phone))
+    //     // avatar.value, 
+    //     await reset();
+    //     await dispatch(CustomerGetThunk())
+    // }
 
 
 
@@ -58,23 +56,30 @@ const CastomerPage = () => {
                     <p>Добавить сотрудника</p>
                     <BlockGridItemData>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <TextField {...register("phone", { required: 'Не может быть пустым' })}
+                            <TextField {...register("phone",
+                                {
+                                    required: 'Не может быть пустым',
+                                    pattern: {
+                                        value: /^\+?[1-9]\d{1,14}$/i,
+                                        message: 'Навильный формат',
+                                    },
+                                })}
                                 id="phone"
-                                label="Название"
+                                label="Телефон"
                                 error={errors.phone}
-                                helperText={errors?.phone?.message && errors.phone.message}
-                            />
+                                helperText={errors?.phone?.message && errors.phone.message} />
+
                             <Button
                                 variant="contained"
                                 color="primary"
                                 type="submit"
                             >
-                                Добавить категорию
+                                Добавить сотрудника
                             </Button>
                         </form>
                     </BlockGridItemData>
                 </BlockGridItem33>
-                <BlockGridItem33>
+                {/* <BlockGridItem33>
                     <p>Восстановить пароль юзера</p>
                     <BlockGridItemData>
 
@@ -94,7 +99,7 @@ const CastomerPage = () => {
                             </Button>
                         </form>
                     </BlockGridItemData>
-                </BlockGridItem33>
+                </BlockGridItem33> */}
                 <BlockGridItem100>
                     <p>Все сотрудники</p>
                     <DenseTable rows={customer} />

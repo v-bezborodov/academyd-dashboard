@@ -8,9 +8,9 @@ if (localStorage.accessToken) {
 }
 
 
-const blogInstance = axios.create({
+const positionsInstance = axios.create({
     baseURL: 'https://coffee.slawek.dev/',
     headers,
 })
 
-export default blogInstance
+export default positionsInstance

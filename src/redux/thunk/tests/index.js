@@ -17,11 +17,11 @@ export const  TestsGetThunk = () => {
         );
     };
 };
-export const  TestsPostThunk = (title, attemps, body, who_check, lavel,) => {
+export const  TestsPostThunk = (title, attemps, body, who_check, lavel, question_ids) => {
     return dispatch => {
         dispatch(
             TestsPost(
-                title, attemps, body, who_check, lavel,
+                title, attemps, body, who_check, lavel,question_ids,
                 res => {
                     toast.success("Тест добавлен")
                 },

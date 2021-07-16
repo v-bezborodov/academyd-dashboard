@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
 import { BlogCategoryThunk, BlogGetThunk } from '../../redux/thunk/blog';
+import PostPageTable from './AddPost/table';
+import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../CustomerPage/index.styled";
 
 
 const BlogPage = () => {
@@ -25,6 +27,8 @@ const BlogPage = () => {
         <div className="container">
             <Menu />
             <div>
+            <BlockGridItem33>
+                    <BlockGridItemData>
                 <Button
                     variant="contained"
                     color="primary"
@@ -32,6 +36,8 @@ const BlogPage = () => {
                 >
                     Перейти к категориям
                 </Button>
+                <br/>
+                <br/>
                 <Button
                     variant="contained"
                     color="primary"
@@ -39,15 +45,11 @@ const BlogPage = () => {
                 >
                     Создать пост
                 </Button>
+                </BlockGridItemData>
+                </BlockGridItem33>
                 <p>Блог</p>
 
-                {blog?.map((row) => (
-                    <div>
-                        <img src={row.img_public} />
-                        {row.title}
-                        {row.body}
-                    </div>
-                ))}
+                <PostPageTable data={blog}/>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import testsInstance from './instance'
 
-const TestsPost = (title, attemps, body, who_check, lavel, callbackSuccess, callbackError) => {
+const TestsPost = (title, attemps, body, who_check, lavel, question_ids, callbackSuccess, callbackError) => {
     return async dispatch => {
         testsInstance.post(
             'api/education/test',
@@ -9,7 +9,8 @@ const TestsPost = (title, attemps, body, who_check, lavel, callbackSuccess, call
                 attemps: attemps,
                 body: body,
                 who_check: who_check,
-                lavel: lavel,
+                lavel: parseInt(lavel),
+                question_ids,
             }
         )
             .then((res) => {

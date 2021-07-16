@@ -9,7 +9,7 @@ if (localStorage.accessToken) {
 
 
 const customerInstance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: 'https://coffee.slawek.dev/',
     headers,
 })
 

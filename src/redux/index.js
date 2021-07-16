@@ -6,6 +6,7 @@ import { questionsReducer } from './reducer/questions';
 import { testsReducer } from './reducer/tests';
 import { cityReducer } from './reducer/city';
 import { coffeeReducer } from './reducer/coffee';
+import { positionsReducer } from './reducer/positions';
 
 export const rootReducer = combineReducers({
   login: loginReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   questions: questionsReducer,
   city: cityReducer,
   coffeeShops: coffeeReducer,
+  position: positionsReducer
 });

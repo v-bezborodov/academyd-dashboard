@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import Menu from "../../../components/menu";
 import { QuestionsGetThunk } from '../../../redux/thunk/questions';
 import { TestsGetThunk } from '../../../redux/thunk/tests';
+import QestionsPageTable from './table';
 
 
 const QuestionsPage = () => {
@@ -33,11 +34,7 @@ const QuestionsPage = () => {
                     Создать вопрос
                 </Button>
                 <p>Все вопросы</p>
-                {questions?.map((row) => (
-                    <div>
-                        {row.title}
-                    </div>
-                ))}
+                <QestionsPageTable data={questions}/>
             </div>
         </div>
     )
