@@ -64,14 +64,13 @@ export const CustomerGetThunk = () => {
     };
 };
 
-export const CustomerShowThunk = (id) => {
+export const CustomerShowThunk = (id, callbackSuccess) => {
     return dispatch => {
         dispatch(
             CustomerShow(
                 id,
                 res => {
-                    // TODO
-                    // dispatch(setCustomer(res.data))
+                   if (callbackSuccess && res.data) callbackSuccess(res.data)
                 },
                 error => {
                     toast.error("Ошибка" + error)

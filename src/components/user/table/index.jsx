@@ -13,14 +13,18 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    table_img: {
+        width: '50px',
+        height:'auto'
+    },
 });
 
 function createData(name, calories, fat) {
     return { name, calories, fat};
 }
 
-
 export default function DenseTable({rows}) {
+
     const classes = useStyles();
 
     return (
@@ -44,11 +48,13 @@ export default function DenseTable({rows}) {
                     rows.map((row) => (
                         <TableRow key={row.id}>
 
-                            <TableCell component="th" scope="row" >{row?.avatar ?
-                                <a href={row.avatar}><img src={row.avatar}/></a>
+                            <TableCell component="th" scope="row" >
+                                {row.avatar ?
+                                <a href={row.avatar}>
+                                    <img className={classes.table_img} src={row.avatar}/></a>
                                 :
                                 <img className={classes.table_img}
-                                     src="./img/template/no-image.png"/>
+                                     src="/img/template/no-image.png"/>
                             }
                             </TableCell>
                             <TableCell align="right">{row.phone}</TableCell>
