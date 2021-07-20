@@ -86,11 +86,11 @@ const CustomerEditCoffee = ({ id }) => {
                         onOpen={handleOpenCoffeeId}
                         value={coffeeId}
                         onChange={handleChangeCoffeeId}
-                        error={errors.coffee_id}
-                        helperText={errors?.coffee_id?.message && errors.coffee_id.message}
+                        error={!!errors.coffee_id}
+
                     >
                         {coffee?.map((row) => (
-                            <MenuItem value={row.id}>{row.name}</MenuItem>
+                            <MenuItem key={row.id} value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -107,21 +107,20 @@ const CustomerEditCoffee = ({ id }) => {
                         onOpen={handleOpenPositionId}
                         value={positionId}
                         onChange={handleChangePositionId}
-                        error={errors.position_id}
-                        helperText={errors?.position_id?.message && errors.position_id.message}
+                        error={!!errors.position_id}
                     >
                         {position?.map((row) => (
-                            <MenuItem value={row.id}>{row.title}</MenuItem>
+                            <MenuItem key={row.id} value={row.id}>{row.title}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
                 </div>
                 <br />
-                <Button variant="contained"
-                    color="primary"
-                    type="submit">
-                    Сохранить
-                </Button>
+                {/*<Button variant="contained"*/}
+                {/*    color="primary"*/}
+                {/*    type="submit">*/}
+                {/*    Сохранить*/}
+                {/*</Button>*/}
             </form>
         </div>
     )

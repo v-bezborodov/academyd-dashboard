@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomerPutThunk, CustomerShowThunk } from "../../../redux/thunk/customer";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerEdit = ({ id }) => {
     const classes = useStyles();
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset, control , setValue} = useForm();
     const dispatch = useDispatch()
     const city = useSelector(store => store.city.city)
 
@@ -36,23 +36,37 @@ const CustomerEdit = ({ id }) => {
 
     useEffect(() => {
         if (id) 
-        dispatch(CustomerShowThunk(id, (data)=>handleDispatchUser(data)))
+        dispatch(CustomerShowThunk(id, handleDispatchUser))
         dispatch(CityGetThunk())
     }, [])
+
+    useEffect(() => {
+        if (errors) console.log ('errors',errors)
+    }, [errors])
 
 
     const handleDispatchUser = (data) => {
         if (!data) return
         const { avatar, phone, name, email, fb, instagram, vk, city_id, status } = data;
-        setName(name);
-        setEmail(email);
-        setPhone(phone);
-        setInstagram(instagram);
-        setFacebook(fb);
-        setVkontakte(vk);
-        setCityId(city_id);
-        setStatus(status);
-        if(avatar) setAvatar(avatar);
+        setValue('name', name)
+        setValue('email', email)
+        setValue('phone', phone)
+        setValue('instagram', instagram)
+        setValue('fb', fb)
+        setValue('vk', vk)
+        setValue('city_id', city_id)
+        setValue('status', status)
+        // setValue('avatar', avatar)
+
+        // setName(name);
+        // setEmail(email);
+        // setPhone(phone);
+        // setInstagram(instagram);
+        // setFacebook(fb);
+        // setVkontakte(vk);
+        // setCityId(city_id);
+        // setStatus(status);
+        // if(avatar) setAvatar(avatar);
     };
 
     const handleCloseCityId = () => {
@@ -67,42 +81,71 @@ const CustomerEdit = ({ id }) => {
         setCityId(event.target.value);
     };
 
+    const handleChangeName = (event) => {
+        setName(event.target.value)
+        // setValue('name', name)
+    };
+
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value)
+    };
+
+    const handleChangePhone = (event) => {
+        setPhone(event.target.value)
+    };
+
+    const handleChangeInstagram = (event) => {
+        setInstagram(event.target.value)
+    };
+
+    const handleChangeStatus= (event) => {
+        setStatus(event.target.value)
+    };
+
+    const handleChangeVk= (event) => {
+        setVkontakte(event.target.value)
+    };
+
+    const handleChangeFacebook = (event) => {
+        setFacebook(event.target.value)
+    };
+
 
     const onSubmit = async (data) => {
+        console.log('data', data)
         if (!data) return
         const formData = new FormData();
-            formData.append('name', data.name);
-            formData.append('email', data.email);
-            formData.append('phone', data.phone);
-            formData.append('avatar', data.avatar[0]);
-            formData.append('instagram', data.instagram);
-            formData.append('fb', data.fb);
-            formData.append('vk', data.vk);
-            formData.append('status', data.status);
-            formData.append('city_id', cityId);
-
-            dispatch(CustomerPutThunk(formData, id))
+            // formData.append('name', data.name);
+            // formData.append('email', data.email);
+            // formData.append('phone', data.phone);
+            // formData.append('avatar', data.avatar[0]);
+            // formData.append('instagram', data.instagram);
+            // formData.append('fb', data.fb);
+            // formData.append('vk', data.vk);
+            // formData.append('status', data.status);
+            // formData.append('city_id', cityId);
+            //
+            // dispatch(CustomerPutThunk(formData, id));
+            // reset();
     }
 
     return (
         <div>
             Юзер {id}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <TextField {...register("name", { required: 'Не может быть пустым' })}
-                    id="name"
-                    value={name}
-                    label="Название"
-                    error={errors.name}
-                    onChange={event=>setName(event.target.value)}
-                    helperText={errors?.name?.message && errors.name.message} />
+            <FormControl>
+                <TextField name="name"
+                   placeholder={"Name"}
+                   error={!!errors.name}
+                   helperText={errors?.name?.message && errors.name.message}
+                   autoFocus
+                   inputProps={
+                       register('name', {required: 'Не может быть пустым'})
+                   }
+                />
 
-                {/*<TextField {...register("address", { required: 'Не может быть пустым' })}*/}
-                {/*           id="address"*/}
-                {/*           label="Адрес"*/}
-                {/*           error={errors.address}*/}
-                {/*           helperText={errors?.address?.message && errors.address.message} />*/}
 
-                <TextField {...register("email",
+                <TextField inputProps={register("email",
                     {
                         required: 'Не может быть пустым',
                         pattern: {
@@ -110,15 +153,14 @@ const CustomerEdit = ({ id }) => {
                             message: 'Неправильный формат email',
                         },
                     })}
-                    id="email"
-                    value={email}
-                    label="E-mail"
+                    autoFocus
+                    name="email"
+                    placeholder="E-mail"
                     type="email"
-                    error={errors.email}
-                    onChange={event=>setEmail(event.target.value)}
+                    error={!!errors.email}
                     helperText={errors?.email?.message && errors.email.message} />
 
-                <TextField {...register("phone",
+                <TextField inputProps={register("phone",
                     {
                         required: 'Не может быть пустым',
                         pattern: {
@@ -126,42 +168,38 @@ const CustomerEdit = ({ id }) => {
                             message: 'Навильный формат',
                         },
                     })}
+                    autoFocus
                     id="phone"
-                    value={phone}
-                    label="Телефон"
-                    error={errors.phone}
-                    onChange={event=>setPhone(event.target.value)}
+                           placeholder="Телефон"
+                    error={!!errors.phone}
                     helperText={errors?.phone?.message && errors.phone.message} />
 
-                <TextField {...register("instagram", { required: 'Не может быть пустым' })}
+                <TextField inputProps={register("instagram", { required: 'Не может быть пустым' })}
+                    autoFocus
                     id="instagram"
-                    value={instagram}
-                    label="instagram"
-                    error={errors.instagram}
-                    onChange={event=>setInstagram(event.target.value)}
+                    placeholder="instagram"
+                    error={!!errors.instagram}
                     helperText={errors?.instagram?.message && errors.instagram.message} />
 
-                <TextField {...register("fb", { required: 'Не может быть пустым' })}
+                <TextField inputProps={register("fb", { required: 'Не может быть пустым' })}
                     id="fb"
-                    value={facebook}
-                    label="Facebook"
-                    error={errors.fb}
-                    onChange={event=>setFacebook(event.target.value)}
+                    placeholder="Facebook"
+                    error={!!errors.fb}
                     helperText={errors?.fb?.message && errors.fb.message} />
 
-                <TextField {...register("vk", { required: 'Не может быть пустым' })}
+                <TextField inputProps={register("vk", { required: 'Не может быть пустым' })}
+                    autoFocus
                     id="vk"
-                    value={vk}
-                    label="Вконтакте"
-                    error={errors.vk}
-                    onChange={event=>setVkontakte(event.target.value)}
+                    placeholder="Вконтакте"
+                    error={!!errors.vk}
                     helperText={errors?.vk?.message && errors.vk.message} />
 
-                <TextField {...register("status", { required: 'Не может быть пустым' })}
+                <TextField inputProps={register("status", { required: 'Не может быть пустым' })}
+                    autoFocus
+                    type="text"
                     id="status"
-                    value={status}
-                    label="Время работы"
-                    error={errors.status}
+                    placeholder="Статус"
+                    error={!!errors.status}
                     helperText={errors?.status?.message && errors.status.message} />
 
                 <FormControl className={classes.formControl}>
@@ -177,10 +215,10 @@ const CustomerEdit = ({ id }) => {
                         value={cityId}
                         onChange={handleChangeCityId}
                         error={errors.city_id}
-                        helperText={errors?.city_id?.message && errors.city_id.message}
+                        // helperText={errors?.city_id?.message && errors.city_id.message} //TODO Select doesn't have helperText property
                     >
                         {city?.map((row) => (
-                            <MenuItem value={row.id}>{row.name}</MenuItem>
+                            <MenuItem key={row.id} value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -194,6 +232,7 @@ const CustomerEdit = ({ id }) => {
                     type="submit">
                     Сохранить
                 </Button>
+            </FormControl>
             </form>
         </div>
     )
