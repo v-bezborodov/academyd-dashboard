@@ -49,13 +49,13 @@ export default function DenseTable({rows}) {
                         <TableRow key={row.id}>
 
                             <TableCell component="th" scope="row" >
-                                {row.avatar ?
-                                <a href={row.avatar}>
-                                    <img className={classes.table_img} src={row.avatar}/></a>
+                                {row.avatar_public ?
+                                <a href={row.avatar_public}>
+                                    <img className={classes.table_img} src={process.env.REACT_APP_BASE_URL + row.avatar_public}/></a>
                                 :
                                 <img className={classes.table_img}
                                      src="/img/template/no-image.png"/>
-                            }
+                                }
                             </TableCell>
                             <TableCell align="right">{row.phone}</TableCell>
                             <TableCell align="right">{row.name}</TableCell>

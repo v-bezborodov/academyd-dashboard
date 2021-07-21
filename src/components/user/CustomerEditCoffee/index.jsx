@@ -116,11 +116,11 @@ const CustomerEditCoffee = ({ id }) => {
                 </FormControl>
                 </div>
                 <br />
-                {/*<Button variant="contained"*/}
-                {/*    color="primary"*/}
-                {/*    type="submit">*/}
-                {/*    Сохранить*/}
-                {/*</Button>*/}
+                <Button variant="contained"
+                    color="primary"
+                    type="submit">
+                    Сохранить
+                </Button>
             </form>
         </div>
     )
