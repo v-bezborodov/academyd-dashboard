@@ -28,7 +28,7 @@ const CustomerEdit = ({ id }) => {
 
     useEffect(() => {
         if (id) 
-        dispatch(CustomerShowThunk(id, handleDispatchUser))
+        dispatch(CustomerShowThunk(id, dispatchUserCallback))
         dispatch(CityGetThunk())
     }, [])
 
@@ -37,7 +37,7 @@ const CustomerEdit = ({ id }) => {
     }, [errors])
 
 
-    const handleDispatchUser = (data) => {
+    const dispatchUserCallback = (data) => {
         if (!data) return
         const { avatar_public, phone, name, email, fb, instagram, vk, city_id, status } = data;
         setValue('name', name)

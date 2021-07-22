@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "./index.styled";
 import SmsIcon from "@material-ui/icons/Sms";
-import DenseTable from "../../components/user/table";
+import DenseTable from "../../components/user/CustomerTable";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomerGetThunk, СustomerRegistrationThunk } from "../../redux/thunk/customer";
 import TextField from "@material-ui/core/TextField";

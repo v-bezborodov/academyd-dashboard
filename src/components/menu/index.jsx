@@ -52,6 +52,12 @@ const Menu = () => {
                         </div>
                     </NavLink>
 
+                    <NavLink className="linkNav" to={"/event"} activeClassName="active_tab">
+                        <div className="iconNav">
+                            <p>Мероприятия</p>
+                        </div>
+                    </NavLink>
+
                     <NavLink className="linkNav" onClick={()=> localStorage.clear()} to={"/"}>
                         <div className="iconNav">
                             <p>Выход</p>

@@ -17,20 +17,22 @@ const CustomerEditCoffee = ({ id }) => {
     
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const coffee = useSelector(store => store.coffeeShops.coffeeShops);
+    const position = useSelector(store => store.position.positions);
+    const [openPositionId, setOpenPositionId] = React.useState(false);
+    const [positionId, setPositionId] = React.useState();
+
 
     useEffect(() => {
-        if (id) dispatch(CustomerShowThunk(id))
-        dispatch(CoffeeGetThunk())
-        dispatch(PositionsGetThunk())
+        if (id) dispatch(CustomerShowThunk(id));
+        dispatch(CoffeeGetThunk());
+        dispatch(PositionsGetThunk());
     }, [])
 
-    const coffee = useSelector(store => store.coffeeShops.coffeeShops)
-    const position = useSelector(store => store.position.positions)
 
     const [openCoffeeId, setOpenCoffeeId] = React.useState(false);
     const [coffeeId, setCoffeeId] = React.useState();
-
 
     const handleCloseCoffeeId = () => {
         setOpenCoffeeId(false);
@@ -43,11 +45,6 @@ const CustomerEditCoffee = ({ id }) => {
     const handleChangeCoffeeId = (event) => {
         setCoffeeId(event.target.value);
     };
-
-
-    const [openPositionId, setOpenPositionId] = React.useState(false);
-    const [positionId, setPositionId] = React.useState();
-
 
     const handleClosePositionId = () => {
         setOpenPositionId(false);
@@ -68,7 +65,7 @@ const CustomerEditCoffee = ({ id }) => {
             formData.append('coffeeshopId', coffeeId);
             formData.append('positionId', positionId);
 
-            dispatch(СustomerPutPositionCoffeeThunk(formData, id))
+            dispatch(СustomerPutPositionCoffeeThunk(formData, id));
     }
 
     return (

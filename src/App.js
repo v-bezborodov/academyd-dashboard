@@ -17,6 +17,7 @@ import QuestionsPage from './screen/TestPage/Questions';
 import QuestionsPageNew from './screen/TestPage/Questions/addQestions';
 import AddPostTest from './screen/TestPage/addTest';
 import CustomerEditPage from "./screen/CustomerPage/CustomerEditPage";
+import EventPage from "./screen/EventPage";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                           <Route path="/blog/newPost" exact component={AddPostPage}/>
                           <Route path="/all-questions/new" exact component={QuestionsPageNew}/>
                           <Route path="/all-test/new" exact component={AddPostTest}/>
+                          <Route path="/event" exact component={EventPage}/>
                       </Switch>
                   </div>
               </div>

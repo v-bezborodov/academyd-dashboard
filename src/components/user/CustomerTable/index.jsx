@@ -23,7 +23,7 @@ function createData(name, calories, fat) {
     return { name, calories, fat};
 }
 
-export default function DenseTable({rows}) {
+export default function CustomerTable({rows}) {
 
     const classes = useStyles();
 
@@ -47,7 +47,6 @@ export default function DenseTable({rows}) {
                     {rows ? 
                     rows.map((row) => (
                         <TableRow key={row.id}>
-
                             <TableCell component="th" scope="row" >
                                 {row.avatar_public ?
                                 <a href={row.avatar_public}>
