@@ -1,7 +1,6 @@
-
 import React from 'react'
 
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,15 +16,16 @@ const useStyles = makeStyles((theme) => ({
     },
     table_img: {
         width: '50px',
-        height:'auto'
+        height: 'auto'
     },
-  }));
+}));
 
 const CoffeePageTable = ({coffee}) => {
     const classes = useStyles();
 
     return (
-        <div >
+        <div>
+            <p>Кофейни</p>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
@@ -44,9 +44,9 @@ const CoffeePageTable = ({coffee}) => {
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
                                     {row.avatar_public ? <a href={process.env.REACT_APP_BASE_URL + row.avatar_public}>
-                                        <img className={classes.table_img}
-                                             src={process.env.REACT_APP_BASE_URL + row.avatar_public}/>
-                                    </a>
+                                            <img className={classes.table_img}
+                                                 src={process.env.REACT_APP_BASE_URL + row.avatar_public}/>
+                                        </a>
                                         :
                                         <img className={classes.table_img}
                                              src="./img/template/no-image.png"/>
@@ -54,12 +54,12 @@ const CoffeePageTable = ({coffee}) => {
                                 </TableCell>
                                 <TableCell align="right">{row.name}</TableCell>
                                 <TableCell align="right">
-                                  {row.address}
+                                    {row.address}
 
                                 </TableCell> <TableCell align="right">
-                                    Телефон: {row.phone}
-                                    Email: {row.email}
-                                </TableCell>
+                                Телефон: {row.phone}
+                                Email: {row.email}
+                            </TableCell>
                                 {/* <TableCell align="right">
                                     {row.instagram}
                                     {row.vk}

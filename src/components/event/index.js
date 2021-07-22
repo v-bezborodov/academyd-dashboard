@@ -9,7 +9,7 @@ const EventMain = () => {
     const dispatch = useDispatch()
     let history = useHistory()
 
-    const [data, setData]=useState();
+    const [data, setData] = useState({});
 
     useEffect(() => {
         if (localStorage.accessToken) {
@@ -19,23 +19,26 @@ const EventMain = () => {
         }
     }, [])
 
-    const getDataEvents =(data)=> {
+    const getDataEvents = (data) => {
         dispatch(EventGetThunk(getDataCallback))
     }
 
-    const getDataCallback =(data)=> {
-        console.log('data', data)
+    const getDataCallback = (data) => {
+        if (!data) return
+        console.log('get events', data)
         setData(data);
     }
 
-    const triggerUpdate =()=> {
+    const triggerUpdate = () => {
         getDataEvents()
     }
 
     return (
         <>
-            <EventForm {...{triggerUpdate}}/>
-            <EventTable {...{data}}/>
+            <div>
+                <EventForm {...{triggerUpdate}}/>
+                <EventTable {...{data}}/>
+            </div>
         </>
     )
 }
