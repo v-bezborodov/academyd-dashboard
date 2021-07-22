@@ -21,23 +21,23 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const CityPageTable = () => {
+const EventTable = ({data}) => {
     const classes = useStyles();
     const dispatch = useDispatch()
     let history = useHistory()
-    const [data, setDate]=useState();
+    // const [data, setDate]=useState();
 
-    useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(EventGetThunk(getDataCallback))
-        } else {
-            history.push('/')
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (localStorage.accessToken) {
+    //         dispatch(EventGetThunk(getDataCallback))
+    //     } else {
+    //         history.push('/')
+    //     }
+    // }, [])
 
-    const getDataCallback =(data)=> {
-        console.log('data', data)
-    }
+    // const getDataCallback =(data)=> {
+    //     console.log('data', data)
+    // }
 
     return (
         <div>
@@ -49,7 +49,7 @@ const CityPageTable = () => {
                             <TableCell>Изображение</TableCell>
                             <TableCell>Название</TableCell>
                             <TableCell>Текст</TableCell>
-                            <TableCell>дрес</TableCell>
+                            <TableCell>Адрес</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -75,4 +75,4 @@ const CityPageTable = () => {
     )
 }
 
-export default CityPageTable;
+export default EventTable;

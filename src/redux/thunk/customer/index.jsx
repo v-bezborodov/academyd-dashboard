@@ -91,9 +91,7 @@ export const CustomerPutThunk = (data, id) => {
                     toast.success('Сотрудник обновлен')
                 },
                 error => {
-                    // console.log(error)
                     notifyToast(retrieveErrorFromApi(error), 'error');
-                    // toast.error("Ошибка" + error)
                 },
             ),
         );

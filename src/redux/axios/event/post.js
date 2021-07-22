@@ -1,10 +1,10 @@
-import cityInstance from './instance'
+import eventInstance from "./instance";
 
-const cityPost = (name, callbackSuccess, callbackError) => {
+const eventPost = (option, callbackSuccess, callbackError) => {
     return async dispatch => {
-        cityInstance.post(
-            'api/city',
-            {name: name}
+        eventInstance.post(
+            'api/event',
+            option
         )
             .then((res) => {
                 if (res.data) typeof callbackSuccess === 'function' && callbackSuccess(res)
@@ -16,4 +16,4 @@ const cityPost = (name, callbackSuccess, callbackError) => {
 
 }
 
-export default cityPost;
+export default eventPost;
