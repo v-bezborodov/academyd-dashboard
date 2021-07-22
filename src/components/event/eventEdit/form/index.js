@@ -4,11 +4,12 @@ import {makeStyles} from '@material-ui/core/styles';
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
-import CustomTextField from "../../../partials/inputs/text";
+import CustomTextField from "../../../../partials/inputs/text";
 import {Button, FormControl, InputLabel, MenuItem} from "@material-ui/core";
-import CustomSelect from "../../../partials/inputs/select";
-import CustomButton from "../../../partials/button";
-import {EventPostThunk} from "../../../redux/thunk/event";
+import CustomSelect from "../../../../partials/inputs/select";
+import CustomButton from "../../../../partials/button";
+import {EventPostThunk} from "../../../../redux/thunk/event";
+import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -16,7 +17,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const EventForm = ({triggerUpdate}) => {
+const EventEditForm = () => {
+
+    let {id} = useParams();
     const classes = useStyles();
     const dispatch = useDispatch()
     const {register, handleSubmit, watch, formState: {errors}, reset} = useForm();
@@ -38,7 +41,7 @@ const EventForm = ({triggerUpdate}) => {
 
         await dispatch(EventPostThunk(formData));
 
-        triggerUpdate();
+        // triggerUpdate();
         // await reset();
         // await dispatch(CityGetThunk())
     }
@@ -47,7 +50,7 @@ const EventForm = ({triggerUpdate}) => {
     return (
         <div>
             <BlockGridItem33>
-                <p>Добавить мероприятие</p>
+                <p>Редактировать мероприятие {id}</p>
                 <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <FormControl>
@@ -132,4 +135,4 @@ const EventForm = ({triggerUpdate}) => {
     )
 }
 
-export default EventForm;
+export default EventEditForm;
