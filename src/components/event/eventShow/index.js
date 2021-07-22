@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import EventForm from "./form";
 import EventTable from "./table";
-import {EventGetThunk} from "../../redux/thunk/event";
+import {EventGetThunk} from "../../../redux/thunk/event";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
@@ -25,7 +25,6 @@ const EventMain = () => {
 
     const getDataCallback = (data) => {
         if (!data) return
-        console.log('get events', data)
         setData(data);
     }
 
@@ -37,7 +36,7 @@ const EventMain = () => {
         <>
             <div>
                 <EventForm {...{triggerUpdate}}/>
-                <EventTable {...{data}}/>
+                <EventTable {...{data, triggerUpdate}}/>
             </div>
         </>
     )

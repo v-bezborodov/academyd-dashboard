@@ -1,6 +1,6 @@
 import React from 'react'
 import Menu from "../../components/menu";
-import EventMain from "../../components/event";
+import EventMain from "../../components/event/eventShow";
 
 
 const EventPage = () => {

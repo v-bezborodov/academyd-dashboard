@@ -1,17 +1,24 @@
 import { toast } from 'react-toastify';
 
-export const notifyToast = (toasts = [], type = 'success') => {
-    if (typeof toasts === 'object') {
-        Object.keys(toasts).map(function(key, index) {
+export const notifyToast = (message = [], type = 'success') => {
+    if (typeof message === 'object') {
+        Object.keys(message).map(function(key, index) {
             if (type==='error') {
-                toasts[key][0] && toast.error(toasts[key][0]);
+                message[key][0] && toast.error(message[key][0]);
             }
             else{
-                toasts[key][0] && toast.success(toasts[key][0]);
+                message[key][0] && toast.success(message[key][0]);
             }
         });
     }else{
-        toast.info('Something was done but can\'t say what')
+
+        if (type === 'error') {
+            toast.error(message)
+        }else{
+            toast.success(message)
+        }
+
+
     }
 }
 

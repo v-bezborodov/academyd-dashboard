@@ -4,11 +4,11 @@ import {makeStyles} from '@material-ui/core/styles';
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
-import CustomTextField from "../../../partials/inputs/text";
+import CustomTextField from "../../../../partials/inputs/text";
 import {Button, FormControl, InputLabel, MenuItem} from "@material-ui/core";
-import CustomSelect from "../../../partials/inputs/select";
-import CustomButton from "../../../partials/button";
-import {EventPostThunk} from "../../../redux/thunk/event";
+import CustomSelect from "../../../../partials/inputs/select";
+import CustomButton from "../../../../partials/button";
+import {EventPostThunk} from "../../../../redux/thunk/event";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -34,7 +34,7 @@ const EventForm = ({triggerUpdate}) => {
         formData.append('address', data.address);
         formData.append('max_attendee', data.max_attendee);
         if (data.img[0]) formData.append('img', data.img[0]);
-        formData.append('is_published', JSON.stringify(data.is_published));
+        formData.append('is_published', data.is_published ? 1 : 0 );
 
         await dispatch(EventPostThunk(formData));
 
