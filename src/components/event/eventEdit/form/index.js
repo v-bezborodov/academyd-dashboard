@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {makeStyles} from '@material-ui/core/styles';
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import CustomTextField from "../../../../partials/inputs/text";
-import {Button, FormControl, InputLabel, MenuItem} from "@material-ui/core";
+import {Button, FormControl, InputLabel, MenuItem, TextField} from "@material-ui/core";
 import CustomSelect from "../../../../partials/inputs/select";
 import CustomButton from "../../../../partials/button";
-import {EventPostThunk} from "../../../../redux/thunk/event";
+import {EventGetThunk, EventPostThunk, EventShowThunk} from "../../../../redux/thunk/event";
 import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,24 +22,40 @@ const EventEditForm = () => {
     let {id} = useParams();
     const classes = useStyles();
     const dispatch = useDispatch()
-    const {register, handleSubmit, watch, formState: {errors}, reset} = useForm();
+    const {register, handleSubmit, watch, formState: {errors}, reset, setValue} = useForm();
+    const [data, setData] = useState({});
 
     const [is_published, setIsPublished] = useState(true);
 
+    useEffect(() => {
+        getDataEvents()
+    }, [])
+
+    const getDataEvents = () => {
+        dispatch(EventShowThunk(id, getDataCallback))
+    }
+
+    const getDataCallback = (data) => {
+        console.log('data', data)
+        if (!data) return
+        // setData(data);
+        setValue('title', data.title);
+    }
+
     const onSubmit = async (data) => {
 
-        console.log('post events', data)
-        if (!data) return
-
-        const formData = new FormData();
-        formData.append('title', data.title);
-        formData.append('body', data.body);
-        formData.append('address', data.address);
-        formData.append('max_attendee', data.max_attendee);
-        if (data.img[0]) formData.append('img', data.img[0]);
-        formData.append('is_published', JSON.stringify(data.is_published));
-
-        await dispatch(EventPostThunk(formData));
+        // console.log('post events', data)
+        // if (!data) return
+        //
+        // const formData = new FormData();
+        // formData.append('title', data.title);
+        // formData.append('body', data.body);
+        // formData.append('address', data.address);
+        // formData.append('max_attendee', data.max_attendee);
+        // if (data.img[0]) formData.append('img', data.img[0]);
+        // formData.append('is_published', JSON.stringify(data.is_published));
+        //
+        // await dispatch(EventPostThunk(formData));
 
         // triggerUpdate();
         // await reset();
@@ -54,9 +70,10 @@ const EventEditForm = () => {
                 <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <FormControl>
-                            <CustomTextField {...register("title", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("title", {required: 'Не может быть пустым'})}
                                              id="title"
-                                             label="Название мероприятия"
+                                             name="title"
+                                             placeholder="Название мероприятия"
                                              error={errors.title}
                                              helperText={errors?.title?.message && errors.title.message}/>
                         </FormControl>

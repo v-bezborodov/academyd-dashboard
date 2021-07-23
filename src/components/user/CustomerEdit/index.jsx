@@ -19,24 +19,16 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomerEdit = ({id}) => {
     const classes = useStyles();
-    const {register, handleSubmit, formState: {errors}, reset, control, setValue} = useForm();
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm();
     const dispatch = useDispatch()
     const city = useSelector(store => store.city.city)
-
     const [avatar, setAvatar] = useState('/img/template/no-image.png');
-
     const [cityId, setCityId] = useState();
 
     useEffect(() => {
-        if (id)
-            dispatch(CustomerShowThunk(id, dispatchUserCallback))
+        if (id) dispatch(CustomerShowThunk(id, dispatchUserCallback))
         dispatch(CityGetThunk())
     }, [])
-
-    useEffect(() => {
-        if (errors) console.log('errors', errors)
-    }, [errors])
-
 
     const dispatchUserCallback = (data) => {
         if (!data) return
@@ -50,7 +42,6 @@ const CustomerEdit = ({id}) => {
         setValue('city_id', city_id)
         setValue('status', status)
         setCityId(city_id);
-
         if (avatar) setAvatar(avatar_public);
     };
 

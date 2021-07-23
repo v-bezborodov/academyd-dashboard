@@ -3,6 +3,7 @@ import eventGet from "../../axios/event";
 import eventPost from "../../axios/event/post";
 import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
 import eventDelete from "../../axios/event/delete";
+import eventShow from "../../axios/event/show";
 
 export const  EventGetThunk = (callback) => {
     return dispatch => {
@@ -12,7 +13,22 @@ export const  EventGetThunk = (callback) => {
                     if (res) callback(res)
                 },
                 error => {
-                    toast.error("Ошибка" + error)
+                    notifyToast(retrieveErrorFromApi(error), 'error');
+                },
+            ),
+        );
+    };
+};
+
+export const  EventShowThunk = (id, callback) => {
+    return dispatch => {
+        dispatch(
+            eventShow( id,
+                res => {
+                    if (res) callback(res)
+                },
+                error => {
+                    notifyToast(retrieveErrorFromApi(error), 'error');
                 },
             ),
         );
