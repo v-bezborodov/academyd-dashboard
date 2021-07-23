@@ -24,8 +24,6 @@ const EventForm = ({triggerUpdate}) => {
     const [is_published, setIsPublished] = useState(true);
 
     const onSubmit = async (data) => {
-
-        console.log('post events', data)
         if (!data) return
 
         const formData = new FormData();
@@ -35,12 +33,8 @@ const EventForm = ({triggerUpdate}) => {
         formData.append('max_attendee', data.max_attendee);
         if (data.img[0]) formData.append('img', data.img[0]);
         formData.append('is_published', data.is_published ? 1 : 0 );
-
-        await dispatch(EventPostThunk(formData));
-
-        triggerUpdate();
-        // await reset();
-        // await dispatch(CityGetThunk())
+        dispatch(EventPostThunk(formData, triggerUpdate));
+        await reset();
     }
 
 

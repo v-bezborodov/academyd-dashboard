@@ -19,7 +19,7 @@ const EventMain = () => {
         }
     }, [])
 
-    const getDataEvents = (data) => {
+    const getDataEvents = () => {
         dispatch(EventGetThunk(getDataCallback))
     }
 

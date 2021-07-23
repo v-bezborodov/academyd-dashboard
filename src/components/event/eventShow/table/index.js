@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {BlockGridItem100} from "../form/index.styled";
 import {Link} from "react-router-dom";
-import {EventDeleteThunk} from "../../../../redux/thunk/event";
+import {EventDeleteThunk, EventGetThunk} from "../../../../redux/thunk/event";
 import {useDispatch} from "react-redux";
 
 
@@ -30,8 +30,7 @@ const EventTable = ({data, triggerUpdate}) => {
     const deleteEvent = (event, id) => {
         if (event) event.preventDefault();
         if (!id) return;
-        dispatch(EventDeleteThunk(id));
-        triggerUpdate();
+        dispatch(EventDeleteThunk(id, triggerUpdate));
     }
 
     return (

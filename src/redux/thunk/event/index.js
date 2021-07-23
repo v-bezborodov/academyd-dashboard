@@ -19,13 +19,14 @@ export const  EventGetThunk = (callback) => {
     };
 };
 
-export const  EventPostThunk = (data) => {
+export const  EventPostThunk = (data, callbackSuccess) => {
     return dispatch => {
         dispatch(
             eventPost(
                 data,
                 res => {
                     if (res) notifyToast('Мероприятие успешно создано');
+                    if (typeof callbackSuccess === 'function') callbackSuccess()
                 },
                 error => {
                     notifyToast(retrieveErrorFromApi(error), 'error');
@@ -35,13 +36,14 @@ export const  EventPostThunk = (data) => {
     };
 };
 
-export const  EventDeleteThunk = (id) => {
+export const  EventDeleteThunk = (id, callbackSuccess) => {
     return dispatch => {
         dispatch(
             eventDelete(
                 id,
                 res => {
                     if (res) notifyToast(retrieveErrorFromApi(res));
+                    if (typeof callbackSuccess === 'function') callbackSuccess()
                 },
                 error => {
                     notifyToast(retrieveErrorFromApi(error), 'error');
