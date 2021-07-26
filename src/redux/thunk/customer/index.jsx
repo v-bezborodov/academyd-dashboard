@@ -1,13 +1,12 @@
 import {batch} from 'react-redux';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setCustomer } from '../../action/customer';
-import CustomerGet from '../../axios/customer/get';
 import CustomerRegistration from "../../axios/customer/post";
 import CustomerPut from '../../axios/customer/put';
 import CustomerPutPositionCoffee from '../../axios/customer/putPositionCoffee';
 import CustomerShow from "../../axios/customer/show";
 import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
+import customerGet from "../../axios/customer/get";
 
 export const СustomerRegistrationThunk = dataPhone => {
     return dispatch => {
@@ -28,7 +27,7 @@ export const СustomerRegistrationThunk = dataPhone => {
     };
 };
 
-export const СustomerPutPositionCoffeeThunk = (data,id) => {
+export const СustomerPutPositionCoffeeThunk = (data, id) => {
     return dispatch => {
         dispatch(
             CustomerPutPositionCoffee(
@@ -48,20 +47,16 @@ export const СustomerPutPositionCoffeeThunk = (data,id) => {
 };
 
 
-export const CustomerGetThunk = () => {
-    return dispatch => {
-        dispatch(
-            CustomerGet(
-                res => {
-                        dispatch(setCustomer(res.data))
-                },
-                error => {
-                    toast.error("Ошибка" + error)
-                    console.log("1" + error)
-                },
-            ),
-        );
-    };
+export const customerGetThunk = (callback) => {
+    return customerGet(
+        res => {
+            if (res) callback(res)
+            // dispatch(setCustomer(res.data))
+        },
+        error => {
+            notifyToast(retrieveErrorFromApi(error), 'error');
+        },
+    );
 };
 
 export const CustomerShowThunk = (id, callbackSuccess) => {
@@ -70,7 +65,7 @@ export const CustomerShowThunk = (id, callbackSuccess) => {
             CustomerShow(
                 id,
                 res => {
-                   if (callbackSuccess && res.data) callbackSuccess(res.data)
+                    if (callbackSuccess && res.data) callbackSuccess(res.data)
                 },
                 error => {
                     toast.error("Ошибка" + error)

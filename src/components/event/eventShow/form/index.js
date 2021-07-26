@@ -3,9 +3,8 @@ import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles';
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
 import CustomTextField from "../../../../partials/inputs/text";
-import {Button, FormControl, InputLabel, MenuItem} from "@material-ui/core";
+import {Button, FormControl, InputLabel, MenuItem, TextField} from "@material-ui/core";
 import CustomSelect from "../../../../partials/inputs/select";
 import CustomButton from "../../../../partials/button";
 import {EventPostThunk} from "../../../../redux/thunk/event";
@@ -18,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EventForm = ({triggerUpdate}) => {
     const classes = useStyles();
-    const dispatch = useDispatch()
-    const {register, handleSubmit, watch, formState: {errors}, reset} = useForm();
+    const {register, handleSubmit, watch, formState: {errors}, reset, setValue} = useForm();
 
     const [is_published, setIsPublished] = useState(true);
 
@@ -32,9 +30,9 @@ const EventForm = ({triggerUpdate}) => {
         formData.append('address', data.address);
         formData.append('max_attendee', data.max_attendee);
         if (data.img[0]) formData.append('img', data.img[0]);
-        formData.append('is_published', data.is_published ? 1 : 0 );
-        dispatch(EventPostThunk(formData, triggerUpdate));
-        await reset();
+         formData.append('is_published', data.is_published === true ? 1 : 0 );
+        await EventPostThunk(formData, triggerUpdate);
+        reset();
     }
 
 
@@ -45,28 +43,28 @@ const EventForm = ({triggerUpdate}) => {
                 <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <FormControl>
-                            <CustomTextField {...register("title", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("title", {required: 'Не может быть пустым'})}
                                              id="title"
                                              label="Название мероприятия"
                                              error={errors.title}
                                              helperText={errors?.title?.message && errors.title.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("body", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("body", {required: 'Не может быть пустым'})}
                                              id="body"
                                              label="Описание"
                                              error={errors.body}
                                              helperText={errors?.body?.message && errors.body.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("address", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("address", {required: 'Не может быть пустым'})}
                                              id="address"
                                              label="Адрес"
                                              error={errors.address}
                                              helperText={errors?.address?.message && errors.address.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("max_attendee", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("max_attendee", {required: 'Не может быть пустым'})}
                                              id="max_attendee"
                                              label="Кол-во участников"
                                              error={errors.max_attendee}
@@ -75,16 +73,15 @@ const EventForm = ({triggerUpdate}) => {
                         <FormControl className={classes.formControl}>
                             <InputLabel id="is_published-label">Опубликован</InputLabel>
                             <CustomSelect
-                                inputProps={register("is_published", {required: 'Не может быть пустым'})}
+                                inputProps={register("is_published")}
                                 labelId="is_published-label"
                                 name="is_published"
+                                defaultValue={false}
                                 id="is_published"
-                                value={is_published}
-                                onChange={event => setIsPublished(event.target.value)}
                                 error={!!errors.is_published}
                             >
-                                <MenuItem value="true">Да</MenuItem>
-                                <MenuItem value="false">Нет</MenuItem>
+                                <MenuItem value={true}>Да</MenuItem>
+                                <MenuItem value={false}>Нет</MenuItem>
                             </CustomSelect>
                         </FormControl>
 

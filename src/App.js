@@ -16,7 +16,7 @@ import AddPostPage from './screen/BlogPage/AddPost';
 import QuestionsPage from './screen/TestPage/Questions';
 import QuestionsPageNew from './screen/TestPage/Questions/addQestions';
 import AddPostTest from './screen/TestPage/addTest';
-import CustomerEditPage from "./screen/CustomerPage/CustomerEditPage";
+import CustomerEditPage from "./screen/CustomerEditPage";
 import EventPage from "./screen/EventPage";
 import EventEditPage from "./screen/EventEditPage";
 

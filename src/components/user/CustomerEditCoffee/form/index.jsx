@@ -3,9 +3,9 @@ import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@m
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { CustomerShowThunk, СustomerPutPositionCoffeeThunk } from "../../../redux/thunk/customer";
-import { CoffeeGetThunk } from '../../../redux/thunk/coffee';
-import { PositionsGetThunk } from '../../../redux/thunk/positions';
+import { CustomerShowThunk, СustomerPutPositionCoffeeThunk } from "../../../../redux/thunk/customer";
+import { CoffeeGetThunk } from '../../../../redux/thunk/coffee';
+import { PositionsGetThunk } from '../../../../redux/thunk/positions';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {

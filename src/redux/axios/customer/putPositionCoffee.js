@@ -1,8 +1,6 @@
 import customerInstance from './instance'
 
 const CustomerPutPositionCoffee = (data, id, callbackSuccess, callbackError) => {
-
-
     return async dispatch => {
         customerInstance.post(
             'api/user/'+id+'/position/coffeeshop',

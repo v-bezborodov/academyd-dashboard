@@ -1,10 +1,7 @@
 import customerInstance from './instance'
 
 const CustomerRegistration = (options, callbackSuccess, callbackError) => {
-
-
     return async dispatch => {
-
         customerInstance.post(
             'api/customer/register',
             options

@@ -20,10 +20,10 @@ const EventMain = () => {
     }, [])
 
     const getDataEvents = () => {
-        dispatch(EventGetThunk(getDataCallback))
+        dispatch(EventGetThunk(handleDataCallback))
     }
 
-    const getDataCallback = (data) => {
+    const handleDataCallback = (data) => {
         if (!data) return
         setData(data);
     }
