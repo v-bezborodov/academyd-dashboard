@@ -1,18 +1,15 @@
-import customerInstance from './instance'
+import eventInstance from "./instance";
 
-const CustomerPut = (data, id, callbackSuccess, callbackError) => {
+const eventPut = (data, id, callbackSuccess, callbackError) => {
     if (!data instanceof FormData) return
     data.append('_method', 'PUT')
-    return async dispatch => {
-        customerInstance.post('api/user/'+id, data)
+    return eventInstance.post('api/event/' + id, data)
             .then((res) => {
                 if (res.data) typeof callbackSuccess === 'function' && callbackSuccess(res)
             })
             .catch(error => {
                 typeof callbackError === 'function' && callbackError(error)
             })
-    }
-
 }
 
-export default CustomerPut;
+export default eventPut;

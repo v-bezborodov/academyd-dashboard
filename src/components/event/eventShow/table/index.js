@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,7 @@ import {BlockGridItem100} from "../form/index.styled";
 import {Link} from "react-router-dom";
 import {EventDeleteThunk, EventGetThunk} from "../../../../redux/thunk/event";
 import {useDispatch} from "react-redux";
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,12 +26,22 @@ const useStyles = makeStyles((theme) => ({
 
 const EventTable = ({data, triggerUpdate}) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    const [events, setEvents] = useState(data)
 
-    const deleteEvent = (event, id) => {
+    useEffect(() => setEvents(data), [data])
+
+    const deleteEvent = (event, id, index) => {
         if (event) event.preventDefault();
         if (!id) return;
-        dispatch(EventDeleteThunk(id, triggerUpdate));
+        deleteRow(index);
+        EventDeleteThunk(id, triggerUpdate);
+
+    }
+    const deleteRow = (index) => {
+        if (index<0) return;
+        var dataBag = [...events];
+        dataBag.splice(index, 1);
+        setEvents(dataBag);
     }
 
     return (
@@ -50,7 +61,7 @@ const EventTable = ({data, triggerUpdate}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.length>0 && data.map((row) => (
+                        {events.length && events.map((row, index) => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.img_public ?
@@ -66,11 +77,11 @@ const EventTable = ({data, triggerUpdate}) => {
                                 <TableCell align="center">{row.body}</TableCell>
                                 <TableCell align="center">{row.address}</TableCell>
                                 <TableCell align="center">{row.max_attendee}</TableCell>
-                                <TableCell align="center">{row.is_published}</TableCell>
+                                <TableCell align="center">{row.is_published?"Да":"Нет"}</TableCell>
                                 <TableCell align="center">
                                     <Link to={"/event/" + row.id}>Изменить</Link>
                                     <br/>
-                                    <a href={ row.id} onClick={(e) => deleteEvent(e, row.id)}>Удалить</a>
+                                    <a href={ row.id} onClick={(e) => deleteEvent(e, row.id, index)}>Удалить</a>
                                 </TableCell>
                             </TableRow>
                         ))}

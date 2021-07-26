@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {CustomerPutThunk, CustomerShowThunk} from "../../../redux/thunk/customer";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         minWidth: 120,
     },
-    table_img: {
+    img: {
         width: '50px',
         height: 'auto'
     },
@@ -184,9 +184,9 @@ const CustomerEdit = ({id}) => {
 
                     {avatar ?
                         <a href={avatar}>
-                            <img className={classes.table_img} src={process.env.REACT_APP_BASE_URL + avatar}/></a>
+                            <img className={classes.img} src={process.env.REACT_APP_BASE_URL + avatar}/></a>
                         :
-                        <img className={classes.table_img} src="/img/template/no-image.png"/>
+                        <img className={classes.img} src="/img/template/no-image.png"/>
                     }
                 </FormControl>
                 <br/>

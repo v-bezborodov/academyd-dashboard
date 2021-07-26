@@ -3,17 +3,20 @@ import React, {useEffect, useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles';
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
 import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
 import CustomTextField from "../../../../partials/inputs/text";
-import {Button, FormControl, InputLabel, MenuItem, TextField} from "@material-ui/core";
+import {Button, FormControl, InputLabel, MenuItem} from "@material-ui/core";
 import CustomSelect from "../../../../partials/inputs/select";
 import CustomButton from "../../../../partials/button";
-import {EventGetThunk, EventPostThunk, EventShowThunk} from "../../../../redux/thunk/event";
+import { EventShowThunk, EventUpdateThunk} from "../../../../redux/thunk/event";
 import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     table: {
         tableLayout: 'fixed',
+    },
+    img: {
+        width: '50px',
+        height: 'auto'
     },
 }));
 
@@ -21,45 +24,47 @@ const EventEditForm = () => {
 
     let {id} = useParams();
     const classes = useStyles();
-    const dispatch = useDispatch()
-    const {register, handleSubmit, watch, formState: {errors}, reset, setValue} = useForm();
-    const [data, setData] = useState({});
-
-    const [is_published, setIsPublished] = useState(true);
+    const {register, handleSubmit, watch, formState: {errors}, reset, getValues, setValue} = useForm();
+    const [img, setImg] = useState('/img/template/no-image.png');
+    const [is_published, setIsPublished] = useState(null);
 
     useEffect(() => {
         getDataEvents()
     }, [])
 
     const getDataEvents = () => {
-        dispatch(EventShowThunk(id, getDataCallback))
+       EventShowThunk(id, getDataCallback);
     }
 
     const getDataCallback = (data) => {
-        console.log('data', data)
         if (!data) return
-        // setData(data);
         setValue('title', data.title);
+        setValue('body', data.body);
+        setValue('address', data.address);
+        setValue('max_attendee', data.max_attendee);
+        setValue('is_published', data.is_published)
+        setIsPublished(data.is_published)
+        setImg(data.img_public);
     }
 
     const onSubmit = async (data) => {
+        if (!data) return
 
-        // console.log('post events', data)
-        // if (!data) return
-        //
-        // const formData = new FormData();
-        // formData.append('title', data.title);
-        // formData.append('body', data.body);
-        // formData.append('address', data.address);
-        // formData.append('max_attendee', data.max_attendee);
-        // if (data.img[0]) formData.append('img', data.img[0]);
-        // formData.append('is_published', JSON.stringify(data.is_published));
-        //
-        // await dispatch(EventPostThunk(formData));
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('body', data.body);
+        formData.append('address', data.address);
+        formData.append('max_attendee', data.max_attendee);
+        if (data.img[0]) formData.append('img', data.img[0]);
+        formData.append('is_published', data.is_published?1:0);
 
-        // triggerUpdate();
-        // await reset();
-        // await dispatch(CityGetThunk())
+        EventUpdateThunk(formData, id);
+    }
+
+    const handleIsPublished= (event) => {
+        if (!event) return
+        setIsPublished(event.target.value);
+        setValue('is_published', event.target.value)
     }
 
 
@@ -78,39 +83,39 @@ const EventEditForm = () => {
                                              helperText={errors?.title?.message && errors.title.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("body", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("body", {required: 'Не может быть пустым'})}
                                              id="body"
-                                             label="Описание"
+                                             placeholder="Описание"
                                              error={errors.body}
                                              helperText={errors?.body?.message && errors.body.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("address", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("address", {required: 'Не может быть пустым'})}
                                              id="address"
-                                             label="Адрес"
+                                             placeholder="Адрес"
                                              error={errors.address}
                                              helperText={errors?.address?.message && errors.address.message}/>
                         </FormControl>
                         <FormControl>
-                            <CustomTextField {...register("max_attendee", {required: 'Не может быть пустым'})}
+                            <CustomTextField inputProps={register("max_attendee", {required: 'Не может быть пустым'})}
                                              id="max_attendee"
-                                             label="Кол-во участников"
+                                             placeholder="Кол-во участников"
                                              error={errors.max_attendee}
                                              helperText={errors?.max_attendee?.message && errors.max_attendee.message}/>
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="is_published-label">Опубликован</InputLabel>
                             <CustomSelect
-                                inputProps={register("is_published", {required: 'Не может быть пустым'})}
+                                inputProps={register("is_published")}
                                 labelId="is_published-label"
                                 name="is_published"
                                 id="is_published"
                                 value={is_published}
-                                onChange={event => setIsPublished(event.target.value)}
+                                onChange={e=>handleIsPublished(e)}
                                 error={!!errors.is_published}
                             >
-                                <MenuItem value="true">Да</MenuItem>
-                                <MenuItem value="false">Нет</MenuItem>
+                                <MenuItem value={true}>Да</MenuItem>
+                                <MenuItem value={false}>Нет</MenuItem>
                             </CustomSelect>
                         </FormControl>
 
@@ -128,12 +133,12 @@ const EventEditForm = () => {
                                 </Button>
                             </label>
 
-                            {/*{avatar ?*/}
-                            {/*    <a href={avatar}>*/}
-                            {/*        <img className={classes.table_img} src={process.env.REACT_APP_BASE_URL + avatar}/></a>*/}
-                            {/*    :*/}
-                            {/*    <img className={classes.table_img} src="/img/template/no-image.png"/>*/}
-                            {/*}*/}
+                            {img ?
+                                <a href={img}>
+                                    <img className={classes.img} src={process.env.REACT_APP_BASE_URL + img}/></a>
+                                :
+                                <img className={classes.img} src="/img/template/no-image.png"/>
+                            }
                         </FormControl>
 
                         <FormControl>
@@ -142,7 +147,7 @@ const EventEditForm = () => {
                                 color="primary"
                                 type="submit"
                             >
-                                Добавить мероприятие
+                                Сохранить мероприятие
                             </CustomButton>
                         </FormControl>
                     </form>
