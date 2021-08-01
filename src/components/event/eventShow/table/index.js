@@ -12,7 +12,6 @@ import {Link} from "react-router-dom";
 import {EventDeleteThunk} from "../../../../redux/thunk/event";
 
 
-
 const useStyles = makeStyles((theme) => ({
     table: {
         tableLayout: 'fixed',
@@ -59,8 +58,8 @@ const EventTable = ({data, triggerUpdate}) => {
                             <TableCell align="center">Действия</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {events.length && events.map((row, index) => (
+                    {events && <TableBody>
+                        {events.length>0  && events.map((row, index) => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.img_public ?
@@ -84,7 +83,7 @@ const EventTable = ({data, triggerUpdate}) => {
                                 </TableCell>
                             </TableRow>
                         ))}
-                    </TableBody>
+                    </TableBody>}
                 </Table>
             </TableContainer>
         </BlockGridItem100>

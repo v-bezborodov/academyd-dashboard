@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import CustomerForm from "./form";
+import CustomerForm from "../customerStore/form";
 import {customerGetThunk} from "../../../redux/thunk/customer";
-import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import CustomerTable from "./table";
 
 
 export default function CustomerMain() {
-    const dispatch = useDispatch();
     let history = useHistory();
     const [data, setData] = useState({});
 

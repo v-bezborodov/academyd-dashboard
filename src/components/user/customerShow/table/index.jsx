@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
 import {BlockGridItem100} from "../../../../screen/CustomerPage/index.styled";
-import {EventDeleteThunk} from "../../../../redux/thunk/event";
+import {CustomerDeleteThunk} from "../../../../redux/thunk/customer";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -22,14 +22,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CustomerTable({data, callbackUpdate}) {
+export default function CustomerTable({data, triggerUpdate}) {
 
     const classes = useStyles();
     const [users, setUsers] = useState(data)
-
-    // function createData(name, calories, fat) {
-    //     return {name, calories, fat};
-    // }
 
     useEffect(() => setUsers(data), [data])
 
@@ -37,13 +33,12 @@ export default function CustomerTable({data, callbackUpdate}) {
         if (event) event.preventDefault();
         if (!id) return;
         deleteRow(index);
-        // EventDeleteThunk(id, triggerUpdate);
-
+        CustomerDeleteThunk(id, triggerUpdate);
     }
 
     const deleteRow = (index) => {
-        if (index<0) return;
-        var dataBag = [...data];
+        if (index < 0) return;
+        var dataBag = [...users];
         dataBag.splice(index, 1);
         setUsers(dataBag);
     }
@@ -65,41 +60,40 @@ export default function CustomerTable({data, callbackUpdate}) {
                             <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {users.length ?
-                            users.map((row, index) => (
-                                <TableRow key={row.id}>
-                                    <TableCell component="th" scope="row">
-                                        {row.avatar_public ?
-                                            <a href={row.avatar_public}>
-                                                <img className={classes.table_img}
-                                                     src={process.env.REACT_APP_BASE_URL + row.avatar_public}/></a>
-                                            :
+                    {users && <TableBody>
+                        {users.length > 0 &&
+                        users.map((row, index) => (
+                            <TableRow key={row.id}>
+                                <TableCell component="th" scope="row">
+                                    {row.avatar_public ?
+                                        <a href={row.avatar_public}>
                                             <img className={classes.table_img}
-                                                 src="/img/template/no-image.png"/>
-                                        }
-                                    </TableCell>
-                                    <TableCell align="center">{row.phone}</TableCell>
-                                    <TableCell align="center">{row.name}</TableCell>
-                                    <TableCell align="center">{row.email}</TableCell>
-                                    <TableCell align="center">
-                                        {row.instagram && <><a href={row.instagram}>Instagram</a><br/></>}
-                                        {row.fb && <><a href={row.fb}>Facebook<br/></a></>}
-                                        {row.vk && <><a href={row.vk}>Vkontakte</a></>}
-                                    </TableCell>
-                                    <TableCell align="center">{row.status}</TableCell>
-                                    <TableCell align="center">
-                                        <Link to={"/all-customer/" + row.id}>Изменить</Link>
-                                        <br/>
-                                        <a href={row.id} onClick={(e) => deleteUser(e, row.id, index)}>Удалить</a>
-                                    </TableCell>
+                                                 src={process.env.REACT_APP_BASE_URL + row.avatar_public}/></a>
+                                        :
+                                        <img className={classes.table_img}
+                                             src="/img/template/no-image.png"/>
+                                    }
+                                </TableCell>
+                                <TableCell align="center">{row.phone}</TableCell>
+                                <TableCell align="center">{row.name}</TableCell>
+                                <TableCell align="center">{row.email}</TableCell>
+                                <TableCell align="center">
+                                    {row.instagram && <><a href={row.instagram}>Instagram</a><br/></>}
+                                    {row.fb && <><a href={row.fb}>Facebook<br/></a></>}
+                                    {row.vk && <><a href={row.vk}>Vkontakte</a></>}
+                                </TableCell>
+                                <TableCell align="center">{row.status}</TableCell>
+                                <TableCell align="center">
+                                    <Link to={"/all-customer/" + row.id}>Изменить</Link>
+                                    <br/>
+                                    <a href={row.id} onClick={(e) => deleteUser(e, row.id, index)}>Удалить</a>
+                                </TableCell>
 
-                                </TableRow>
-                            ))
-                            :
-                            <></>
+                            </TableRow>
+                        ))
                         }
                     </TableBody>
+                    }
                 </Table>
             </TableContainer>
         </BlockGridItem100>

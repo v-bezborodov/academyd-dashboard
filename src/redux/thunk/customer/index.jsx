@@ -7,24 +7,25 @@ import CustomerPutPositionCoffee from '../../axios/customer/putPositionCoffee';
 import CustomerShow from "../../axios/customer/show";
 import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
 import customerGet from "../../axios/customer/get";
+import eventDelete from "../../axios/event/delete";
+import customerDelete from "../../axios/customer/delete";
 
-export const СustomerRegistrationThunk = dataPhone => {
-    return dispatch => {
-        dispatch(
-            CustomerRegistration(
-                dataPhone,
-                res => {
-                    batch(() => {
-                        toast.success("Круто! Вы успешно отправили")
-                    });
+export const СustomerRegistrationThunk = (dataPhone, callback) => {
+    return CustomerRegistration(
+        dataPhone,
+        res => {
+            batch(() => {
+                toast.success("Круто! Вы успешно отправили")
+            });
+            if (res) callback(res)
 
-                },
-                error => {
-                    toast.error("" + error)
-                },
-            ),
-        );
-    };
+        },
+        error => {
+            toast.error("" + error)
+        },
+    );
+
+
 };
 
 export const СustomerPutPositionCoffeeThunk = (data, id) => {
@@ -51,7 +52,6 @@ export const customerGetThunk = (callback) => {
     return customerGet(
         res => {
             if (res) callback(res)
-            // dispatch(setCustomer(res.data))
         },
         error => {
             notifyToast(retrieveErrorFromApi(error), 'error');
@@ -91,4 +91,17 @@ export const CustomerPutThunk = (data, id) => {
             ),
         );
     };
+};
+
+export const CustomerDeleteThunk = (id, callbackSuccess) => {
+    return customerDelete(
+        id,
+        res => {
+            notifyToast('Юзер успешно удален');
+            if (typeof callbackSuccess === 'function') callbackSuccess()
+        },
+        error => {
+            notifyToast(retrieveErrorFromApi(error), 'error');
+        },
+    )
 };

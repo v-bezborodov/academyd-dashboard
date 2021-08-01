@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {CustomerPutThunk, CustomerShowThunk} from "../../../../redux/thunk/customer";
 import {CityGetThunk} from '../../../../redux/thunk/city';
 import CustomSelect from "../../../../partials/inputs/select";
+import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CustomerEdit = ({id}) => {
+const CustomerEdit = () => {
+    let {id} = useParams();
     const classes = useStyles();
     const {register, handleSubmit, formState: {errors}, setValue} = useForm();
     const dispatch = useDispatch()
