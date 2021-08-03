@@ -10,11 +10,7 @@ export default function CustomerMain() {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            getCustomers();
-        } else {
-            history.push('/')
-        }
+        getCustomers();
     }, [])
 
     const getCustomers = () => {

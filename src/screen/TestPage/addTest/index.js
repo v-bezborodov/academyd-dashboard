@@ -55,14 +55,6 @@ const AddPostTest = () => {
     };
 
 
-    useEffect(() => {
-        if (localStorage.accessToken) {
-            // dispatch(BlogCategoryThunk())
-        } else {
-            history.push('/')
-        }
-    }, [])
-
     const [is_comment, setIs_comment] = React.useState(true);
 
     const handleChange = (event) => {

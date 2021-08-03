@@ -16,11 +16,7 @@ const CategoryPage = () => {
     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(BlogCategoryThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(BlogCategoryThunk())
     }, [])
 
 

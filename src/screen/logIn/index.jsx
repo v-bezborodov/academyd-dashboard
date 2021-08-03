@@ -35,15 +35,6 @@ const LoginPage = () => {
     }
 
 
-    useEffect(() => {
-        if(localStorage.accessToken){
-            history.push('/home')
-        }else {
-
-        }
-    }, [localStorage])
-
-
     return (
         <Login>
             <form>

@@ -12,11 +12,7 @@ const EventMain = () => {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            getDataEvents()
-        } else {
-            history.push('/')
-        }
+        getDataEvents()
     }, [])
 
     const getDataEvents = () => {

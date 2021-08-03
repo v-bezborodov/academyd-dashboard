@@ -14,11 +14,7 @@ const TestPage = () => {
 
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(TestsGetThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(TestsGetThunk())
     }, [])
 
     return (

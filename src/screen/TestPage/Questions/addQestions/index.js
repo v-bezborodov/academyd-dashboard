@@ -55,15 +55,6 @@ const QuestionsPageNew = () => {
     };
 
 
-    useEffect(() => {
-        if (localStorage.accessToken) {
-            // dispatch(BlogCategoryThunk())
-        } else {
-            history.push('/')
-        }
-    }, [])
-
-
 
     const onSubmit = async (data) => {
         if (!data) return

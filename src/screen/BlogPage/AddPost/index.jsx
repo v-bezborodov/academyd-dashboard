@@ -23,14 +23,6 @@ const AddPostPage = () => {
     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
 
-    useEffect(() => {
-        if (localStorage.accessToken) {
-            // dispatch(BlogCategoryThunk())
-        } else {
-            history.push('/')
-        }
-    }, [])
-
 
     const [openCategoryId, setOpenCategoryId] = React.useState(false);
     const [categoryId, setCategoryId] = React.useState();

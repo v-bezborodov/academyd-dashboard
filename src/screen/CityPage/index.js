@@ -2,26 +2,19 @@ import { Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
 import Menu from "../../components/menu";
-import { BlogGetThunk } from '../../redux/thunk/blog';
 import { CityGetThunk, CityPostThunk } from '../../redux/thunk/city';
 import { BlockGridItem, BlockGridItem100, BlockGridItem33, BlockGridItemData } from "../CustomerPage/index.styled";
 import CityPageTable from './table';
 
 
 const CityPage = () => {
-    let history = useHistory()
     const dispatch = useDispatch()
     const city = useSelector(store => store.city.city)
     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(CityGetThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(CityGetThunk())
     }, [])
 
     const onSubmit = async (data) => {

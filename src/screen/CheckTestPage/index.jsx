@@ -7,15 +7,6 @@ const ChekTestPage = () => {
     let history = useHistory()
 
 
-
-    useEffect(() => {
-        if(localStorage.accessToken){
-
-        }else {
-            history.push('/')
-        }
-    }, [])
-
     return (
         <div className="container">
             <Menu/>

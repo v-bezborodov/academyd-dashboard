@@ -15,12 +15,8 @@ const BlogPage = () => {
     const blogCategory = useSelector(store => store.blog.blogCategory)
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(BlogGetThunk())
-            dispatch(BlogCategoryThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(BlogGetThunk())
+        dispatch(BlogCategoryThunk())
     }, [])
 
     return (

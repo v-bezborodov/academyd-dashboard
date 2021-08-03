@@ -15,11 +15,7 @@ const QuestionsPage = () => {
 
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(QuestionsGetThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(QuestionsGetThunk())
     }, [])
 
     return (

@@ -42,12 +42,8 @@ const CoffeePage = () => {
     };
 
     useEffect(() => {
-        if (localStorage.accessToken) {
-            dispatch(CoffeeGetThunk(true))
-            dispatch(CityGetThunk())
-        } else {
-            history.push('/')
-        }
+        dispatch(CoffeeGetThunk(true))
+        dispatch(CityGetThunk())
     }, [])
 
 
