@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import EventForm from "./form";
+import EventForm from "../eventStore/form";
 import EventTable from "./table";
 import {EventGetThunk} from "../../../redux/thunk/event";
 import {useDispatch} from "react-redux";

@@ -7,7 +7,6 @@ import CustomerPutPositionCoffee from '../../axios/customer/putPositionCoffee';
 import CustomerShow from "../../axios/customer/show";
 import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
 import customerGet from "../../axios/customer/get";
-import eventDelete from "../../axios/event/delete";
 import customerDelete from "../../axios/customer/delete";
 
 export const СustomerRegistrationThunk = (dataPhone, callback) => {
@@ -21,7 +20,7 @@ export const СustomerRegistrationThunk = (dataPhone, callback) => {
 
         },
         error => {
-            toast.error("" + error)
+            notifyToast(retrieveErrorFromApi(error), 'error');
         },
     );
 

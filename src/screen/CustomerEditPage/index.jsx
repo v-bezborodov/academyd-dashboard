@@ -1,9 +1,8 @@
 import React from 'react'
-import {useParams} from "react-router-dom";
-import CustomerEdit from "../../components/user/CustomerEdit/form";
+import CustomerEdit from "../../components/user/customerEdit/form";
 import Menu from "../../components/menu";
 import {BlockGridItem33} from "../CustomerPage/index.styled";
-import CustomerEditCoffee from '../../components/user/CustomerEditCoffee/form';
+import CustomerEditCoffee from '../../components/user/customerEditCoffee/form';
 
 const CustomerEditPage = () => {
 

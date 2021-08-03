@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {BlockGridItem100} from "../form/index.styled";
+import {BlockGridItem100} from "../../eventStore/form/index.styled";
 import {Link} from "react-router-dom";
 import {EventDeleteThunk} from "../../../../redux/thunk/event";
 
