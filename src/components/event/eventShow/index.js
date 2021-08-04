@@ -3,11 +3,9 @@ import EventForm from "../eventStore/form";
 import EventTable from "./table";
 import {EventGetThunk} from "../../../redux/thunk/event";
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
 
 const EventMain = () => {
     const dispatch = useDispatch()
-    let history = useHistory()
 
     const [data, setData] = useState({});
 
@@ -29,12 +27,10 @@ const EventMain = () => {
     }
 
     return (
-        <>
-            <div>
-                <EventForm {...{triggerUpdate}}/>
-                <EventTable {...{data, triggerUpdate}}/>
-            </div>
-        </>
+        <div>
+            <EventForm {...{triggerUpdate}}/>
+            <EventTable {...{data, triggerUpdate}}/>
+        </div>
     )
 }
 

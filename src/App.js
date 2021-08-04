@@ -10,7 +10,7 @@ import BlogPage from "./screen/BlogPage";
 import TestPage from "./screen/TestPage";
 import CastomerPage from "./screen/CustomerPage";
 import CityPage from './screen/CityPage';
-import CoffeePage from './screen/CoffeePage';
+import CoffeePage from './screen/CoffeeShopPage';
 import CategoryPage from './screen/BlogPage/AddCategory';
 import AddPostPage from './screen/BlogPage/AddPost';
 import QuestionsPage from './screen/TestPage/Questions';
@@ -19,6 +19,7 @@ import AddPostTest from './screen/TestPage/addTest';
 import CustomerEditPage from "./screen/CustomerEditPage";
 import EventPage from "./screen/EventPage";
 import EventEditPage from "./screen/EventEditPage";
+import CalendarPage from "./screen/CalendarPage";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
                           <Route path="/all-customer/:id" exact component={CustomerEditPage}/>
                           <Route path="/all-city" exact component={CityPage}/>
                           <Route path="/all-coffee" exact component={CoffeePage}/>
+                          <Route path="/all-coffee/:id/calendar" exact component={CalendarPage}/>
                           <Route path="/blog/category" exact component={CategoryPage}/>
                           <Route path="/blog/newPost" exact component={AddPostPage}/>
                           <Route path="/all-questions/new" exact component={QuestionsPageNew}/>

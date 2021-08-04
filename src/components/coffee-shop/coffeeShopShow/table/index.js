@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -9,6 +9,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {useDispatch, useSelector} from "react-redux";
+import {CoffeeGetThunk} from "../../../../redux/thunk/coffee";
+import {CityGetThunk} from "../../../../redux/thunk/city";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -20,8 +24,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CoffeePageTable = ({coffee}) => {
+const CoffeeTable = () => {
     const classes = useStyles();
+    const dispatch = useDispatch()
+
+    const coffee = useSelector(store => store.coffeeShops.coffeeShops)
+
+
+    useEffect(() => {
+        dispatch(CoffeeGetThunk(true))
+        dispatch(CityGetThunk())
+    }, [])
+
 
     return (
         <div>
@@ -36,6 +50,7 @@ const CoffeePageTable = ({coffee}) => {
                             <TableCell align="right">Контакты</TableCell>
                             {/* <TableCell align="right">Соцсети</TableCell> */}
                             <TableCell align="right">Рабочие часы</TableCell>
+                            <TableCell align="right">Город</TableCell>
                             <TableCell align="right">Город</TableCell>
                         </TableRow>
                     </TableHead>
@@ -55,11 +70,11 @@ const CoffeePageTable = ({coffee}) => {
                                 <TableCell align="right">{row.name}</TableCell>
                                 <TableCell align="right">
                                     {row.address}
-
-                                </TableCell> <TableCell align="right">
-                                Телефон: {row.phone}
-                                Email: {row.email}
-                            </TableCell>
+                                </TableCell>
+                                <TableCell align="right">
+                                    Телефон: {row.phone}
+                                    Email: {row.email}
+                                </TableCell>
                                 {/* <TableCell align="right">
                                     {row.instagram}
                                     {row.vk}
@@ -67,6 +82,10 @@ const CoffeePageTable = ({coffee}) => {
                                 </TableCell> */}
                                 <TableCell align="right">{row.working_time}</TableCell>
                                 <TableCell align="right">{row?.city?.name && row.city.name}</TableCell>
+                                <TableCell align="right">
+                                    <Link to={"/all-coffee/" + row.id + "/calendar"}>Календарь</Link>
+                                    <br/>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -76,4 +95,4 @@ const CoffeePageTable = ({coffee}) => {
     )
 }
 
-export default CoffeePageTable;
+export default CoffeeTable;

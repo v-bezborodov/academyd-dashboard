@@ -1,5 +1,6 @@
 import * as axios from 'axios'
-
+import requestInterceptor from "../../_interceptor/requestInterceptor";
+import responseInterceptor from "../../_interceptor/responseInterceptor";
 
 const headers = {
   'Content-Type': 'application/json',
