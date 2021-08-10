@@ -30,7 +30,6 @@ const CoffeeTable = () => {
 
     const coffee = useSelector(store => store.coffeeShops.coffeeShops)
 
-
     useEffect(() => {
         dispatch(CoffeeGetThunk(true))
         dispatch(CityGetThunk())
@@ -48,7 +47,6 @@ const CoffeeTable = () => {
                             <TableCell>Название</TableCell>
                             <TableCell align="right">Адрес</TableCell>
                             <TableCell align="right">Контакты</TableCell>
-                            {/* <TableCell align="right">Соцсети</TableCell> */}
                             <TableCell align="right">Рабочие часы</TableCell>
                             <TableCell align="right">Город</TableCell>
                             <TableCell align="right">Город</TableCell>
@@ -75,11 +73,6 @@ const CoffeeTable = () => {
                                     Телефон: {row.phone}
                                     Email: {row.email}
                                 </TableCell>
-                                {/* <TableCell align="right">
-                                    {row.instagram}
-                                    {row.vk}
-                                    {row.fb}
-                                </TableCell> */}
                                 <TableCell align="right">{row.working_time}</TableCell>
                                 <TableCell align="right">{row?.city?.name && row.city.name}</TableCell>
                                 <TableCell align="right">
