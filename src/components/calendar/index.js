@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
-import {Calendar, momentLocalizer} from 'react-big-calendar'
+import {Calendar, momentLocalizer,  Views} from 'react-big-calendar'
 
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { coffeeGetUserWorkingTimeThunk} from "../../redux/thunk/coffee";
+import {Button} from "@material-ui/core";
+import CalendarModal from "./modal";
 
 
 
@@ -14,6 +16,8 @@ const CalendarMain = () => {
     let {id} = useParams();
 
     const [positionsList, setPositionList] = useState(null);
+    const [open, setOpenModal] = useState(false);
+
     const [myEventsList, setEventsList] = useState([
         {
             'title': 'All Day Event very long title',
@@ -107,29 +111,57 @@ const CalendarMain = () => {
 
     useEffect(() => {
         if (id) coffeeGetUserWorkingTimeThunk(id, handleDataCallback)
-    }, [])
+    }, []);
 
     const handleDataCallback = (data) => {
-        if (!data) return
-        console.log('data', data)
+        if (!data) return;
 
-        let positions = data.map(item => (
-            item.name
-        ))
+        let positions = data.map((item) => {
+            if (item.user.length>0) {
+               return item.user.map(itemUser=>{
+                    return itemUser.name;
+                })
+            };
+        })
+
         setPositionList(positions)
-        // setEventsList(data)
     }
+
+    const handleClickOpen = () => {
+        setOpen();
+    };
+
+    const setOpen = () => {
+        setOpenModal(true)
+
+    };
+
+    const setClose = () => {
+        setOpenModal(false)
+    };
+
 
 
     return (
         <div>
             Calendar for coffee shop {id}
+            <div>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    onClick={handleClickOpen}
+                >
+                    Добавить время +
+                </Button>
+            </div>
 
             <div>
                 Доступные позиции в этой кофейне
                 <ul>
-                    {positionsList && positionsList.map(positions => (
-                        <li>{positions}</li>
+                    {positionsList && positionsList.map((positions, index) => (
+                        <li key={index}>{positions}</li>
                     ))}
                 </ul>
             </div>
@@ -139,9 +171,11 @@ const CalendarMain = () => {
                 events={myEventsList}
                 startAccessor="start"
                 endAccessor="end"
+                defaultView={Views.WEEK}
                 style={{height: 500}}
             />}
 
+            {open && <CalendarModal {...{open, setOpen, setClose}}/>}
         </div>
     )
 }
