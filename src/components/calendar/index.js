@@ -17,6 +17,8 @@ const CalendarMain = () => {
 
     const [positionsList, setPositionList] = useState(null);
     const [open, setOpenModal] = useState(false);
+    const [start, setStart] = useState(null);
+    const [end, setEnd] = useState(null);
 
     const [myEventsList, setEventsList] = useState([
         {
@@ -133,13 +135,17 @@ const CalendarMain = () => {
 
     const setOpen = () => {
         setOpenModal(true)
-
     };
 
     const setClose = () => {
         setOpenModal(false)
     };
 
+    const handleSelectSlot = (event) => {
+        setOpen();
+        if (event.start) setStart(event.start);
+        if (event.end) setEnd(event.end);
+    };
 
 
     return (
@@ -171,11 +177,13 @@ const CalendarMain = () => {
                 events={myEventsList}
                 startAccessor="start"
                 endAccessor="end"
+                selectable="true"
                 defaultView={Views.WEEK}
                 style={{height: 500}}
+                onSelectSlot={handleSelectSlot}
             />}
 
-            {open && <CalendarModal {...{open, setOpen, setClose}}/>}
+            {open && <CalendarModal {...{open, setOpen, setClose, start, end}}/>}
         </div>
     )
 }

@@ -9,6 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {coffeePlaceGetThunk, CoffeePlaceGetThunk} from "../../../redux/thunk/coffeePlace";
 import {coffeeGetUserWorkingTimeThunk} from "../../../redux/thunk/coffee";
 import {customerGetThunk} from "../../../redux/thunk/customer";
+import CustomDatePicker from "../../../partials/datepicker";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CalendarModal = ({open, setOpen, setClose}) => {
+const CalendarModal = ({open, setOpen, setClose, start, end}) => {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm();
     const classes = useStyles();
@@ -123,6 +124,9 @@ const CalendarModal = ({open, setOpen, setClose}) => {
                         ))}
                     </Select>
                 </FormControl>
+                {JSON.stringify(start, end)}
+                {start && <CustomDatePicker  date = {start}/>}
+                {end && <CustomDatePicker date ={end}/>}
 
                 {/*<input {...register("avatar")} type="file" name="avatar"/>*/}
 
