@@ -10,7 +10,13 @@ import CalendarModal from "./modal";
 
 
 
-const localizer = momentLocalizer(moment)
+const localizer = momentLocalizer(moment);
+
+let formats = {
+    timeGutterFormat: 'HH:mm',
+    agendaDateFormat: 'Y-m-d H:i:s',
+    agendaTimeFormat: 'Y-m-d H:i:s',
+}
 
 const CalendarMain = () => {
     let {id} = useParams();
@@ -174,6 +180,7 @@ const CalendarMain = () => {
 
             {myEventsList && <Calendar
                 localizer={localizer}
+                formats={formats}
                 events={myEventsList}
                 startAccessor="start"
                 endAccessor="end"

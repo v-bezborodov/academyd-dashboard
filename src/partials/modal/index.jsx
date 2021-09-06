@@ -11,9 +11,6 @@ const CustomModal = ({title, open, setOpen, setClose, setAction, children}) => {
 
     return (
         <div>
-            {/*<Button variant="outlined" color="primary" onClick={handleClickOpen}>*/}
-            {/*    Slide in alert dialog*/}
-            {/*</Button>*/}
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -31,12 +28,7 @@ const CustomModal = ({title, open, setOpen, setClose, setAction, children}) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={setAction} color="primary">
-                        Сохранить
-                    </Button>
-                    <Button onClick={setClose} color="primary">
-                        Закрыть
-                    </Button>
+
                 </DialogActions>
             </Dialog>
         </div>
