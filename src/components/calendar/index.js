@@ -23,8 +23,8 @@ const CalendarMain = () => {
 
     const [positionsList, setPositionList] = useState(null);
     const [open, setOpenModal] = useState(false);
-    const [start, setStart] = useState(null);
-    const [end, setEnd] = useState(null);
+    const [start, setStart] = useState(new Date());
+    const [end, setEnd] = useState(new Date());
 
     const [myEventsList, setEventsList] = useState([
         {
@@ -149,8 +149,8 @@ const CalendarMain = () => {
 
     const handleSelectSlot = (event) => {
         setOpen();
-        if (event.start) setStart(event.start);
-        if (event.end) setEnd(event.end);
+        if (event.start) setStart( new Date(event.start)); //due of undefined reason we need convert in again
+        if (event.end) setEnd(new Date(event.end)); //due of undefined reason we need convert in again
     };
 
 
