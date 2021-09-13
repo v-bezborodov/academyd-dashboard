@@ -7,7 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {coffeePlaceGetThunk, CoffeePlaceGetThunk} from "../../../redux/thunk/coffeePlace";
 import {customerGetThunk} from "../../../redux/thunk/customer";
 import CustomDatePicker from "../../../partials/datepicker";
-import {CalendarPostThunk} from "../../../redux/thunk/calendar";
+import {calendarPostThunk} from "../../../redux/thunk/calendar";
 import {useParams} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,12 +50,11 @@ const CalendarForm = ({start, end, setClose}) => {
         const options ={
             working_date_from,
             working_date_to,
-            coffee_shop_id:id,
+            сoffee_shop_id:id,
             ...data
         }
-        console.log('options', options)
 
-        CalendarPostThunk(options)
+        calendarPostThunk(options)
 
     };
 
@@ -105,14 +104,14 @@ const CalendarForm = ({start, end, setClose}) => {
                 <FormControl className={classes.formControl}>
                     <InputLabel id="demo-controlled-open-select-label">Место в кофейне</InputLabel>
                     <Select
-                        inputProps={register("coffee_place_id", {required: 'Город не может быть пустым'})}
+                        inputProps={register("сoffee_shop_place_id", {required: 'Город не может быть пустым'})}
                         labelId="demo-controlled-open-select-label"
-                        id="coffee_place_id"
+                        id="сoffee_shop_place_id"
                         onClose={handleClose}
                         onOpen={handleOpen}
                         onChange={handleChangeCoffeePlace}
-                        error={errors.coffee_place}
-                        helperText={errors?.coffee_place_id?.message && errors.coffee_place_id.message}
+                        error={errors.сoffee_shop_place_id}
+                        helperText={errors?.сoffee_shop_place_id?.message && errors.сoffee_shop_place_id.message}
                     >
                         {coffeeShopPlace.length>0 && coffeeShopPlace.map((row) => (
                             <MenuItem value={row.id}>{row.name}</MenuItem>
@@ -129,7 +128,7 @@ const CalendarForm = ({start, end, setClose}) => {
                         onClose={handleClose}
                         onOpen={handleOpen}
                         onChange={handleChangeCoffeePlace}
-                        error={errors.user}
+                        error={errors.user_id}
                         helperText={errors?.user_id?.message && errors.user_id.message}
                     >
                         {users.length>0 && users.map((row) => (
@@ -138,7 +137,7 @@ const CalendarForm = ({start, end, setClose}) => {
                     </Select>
                 </FormControl>
 
-                {working_date_from && <CustomDatePicker date = { working_date_from}
+                {working_date_from && <CustomDatePicker date = {working_date_from}
                     callback={callbackEnd}/>}
 
                 {working_date_to && <CustomDatePicker date ={working_date_to}
