@@ -27,7 +27,7 @@ const BlogPage = () => {
                     <BlockGridItemData>
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={() => history.push('/blog/category')}
                 >
                     Перейти к категориям
@@ -36,7 +36,7 @@ const BlogPage = () => {
                 <br/>
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={() => history.push('/blog/newPost')}
                 >
                     Создать пост

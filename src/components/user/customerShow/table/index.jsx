@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 export default function CustomerTable({data, triggerUpdate}) {
 
     const classes = useStyles();

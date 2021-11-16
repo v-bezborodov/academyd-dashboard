@@ -211,7 +211,7 @@ const QuestionsPageNew = () => {
                                 }
                                 <Button
                                     variant="contained"
-                                    color="primary"
+                                    // color="primary"
                                     type="submit"
                                 >
                                     Создать пост

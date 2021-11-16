@@ -47,7 +47,7 @@ const LoginPage = () => {
                 <div>
                     <Button
                         variant="contained"
-                        color="primary"
+                        // color="primary"
                         onClick={() => loginGo()}
                         className={classes.button}
                         endIcon={<LockOpenIcon/>}>

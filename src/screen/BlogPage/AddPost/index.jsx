@@ -27,12 +27,17 @@ import {
 } from "../../CustomerPage/index.styled";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import CustomSelect from "../../../partials/inputs/select";
+import { OutlinedInput } from "@mui/material";
+import { ListItemText } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
   },
 }));
+
+
 
 const AddPostPage = () => {
   const classes = useStyles();
@@ -47,11 +52,23 @@ const AddPostPage = () => {
     watch,
     formState: { errors },
     reset,
+    setValue,
   } = useForm();
 
   const [openCategoryId, setOpenCategoryId] = React.useState(false);
   const [categoryId, setCategoryId] = React.useState([]);
-  const [isComment, setIsComment] = React.useState(false);
+  const [is_comment, setIsComment] = useState(false);
+  const [is_published, setIsPublished] = useState(false);
+
+  const handleChangeCategoryId = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setCategoryId(
+      // On autofill we get a the stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
   const handleCloseCategoryId = () => {
     setOpenCategoryId(false);
@@ -61,9 +78,9 @@ const AddPostPage = () => {
     setOpenCategoryId(true);
   };
 
-  const handleChangeCategoryId = (event) => {
-    setCategoryId([event.target.value]);
-  };
+  // const handleChangeCategoryId = (event) => {
+  //   setCategoryId([event.target.value]);
+  // };
 
   const handleChange = (event) => {
     console.log(event.target.checked);
@@ -78,15 +95,29 @@ const AddPostPage = () => {
     dataForm.append("img", data.img[0]);
     dataForm.append("created_by", 1);
     dataForm.append("time_read", data.time_read);
-    dataForm.append("is_published", true);
-    dataForm.append("is_comment", true);
-    // dataForm.append("category_id", categoryId);
+    dataForm.append("is_published", data.is_published ? 1 : 0);
+    dataForm.append("is_comment", data.is_comment ? 1 : 0);
+    categoryId.map((item, i)=> {
+      return dataForm.append('category_id[]', categoryId[i])
+    });
 
     await dispatch(BlogPostThunk(dataForm));
 
     await reset();
     await dispatch(BlogCategoryThunk());
     history.push("/blog");
+  };
+
+  const handleIsPublished = (event) => {
+    if (!event) return;
+    setIsPublished(event.target.value);
+    setValue("is_published", event.target.value);
+  };
+
+  const handleIsCommnet = (event) => {
+    if (!event) return;
+    setIsComment(event.target.value);
+    setValue("is_comment", event.target.value);
   };
 
   return (
@@ -130,41 +161,66 @@ const AddPostPage = () => {
                   }
                 />
 
-                <FormControl className={classes.formControl}>
+                <FormControl>
                   <InputLabel id="demo-controlled-open-select-label">
                     Категория
                   </InputLabel>
                   <Select
                     labelId="demo-controlled-open-select-label"
-                    id="level"
-                    open={openCategoryId}
-                    onClose={handleCloseCategoryId}
-                    onOpen={handleOpenCategoryId}
+                    id="category"
+                    multiple
                     value={categoryId}
                     onChange={handleChangeCategoryId}
+                    renderValue={(selected) => selected.join(", ")}
                   >
-                    {blogCategory?.map((row) => (
-                      <MenuItem value={row.id}>{row.title}</MenuItem>
+                    {blogCategory?.map((category, i) => (
+                      <MenuItem key={i} value={category.id}>
+                        <Checkbox
+                          checked={categoryId.indexOf(category.id) > -1}
+                        />
+                        <ListItemText primary={category.title} />
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-                <div style={{ display: "flex" }}>
-                  <Checkbox
-                    id="is_comment"
-                    color="primary"
-                    inputProps={{ "aria-label": "secondary checkbox" }}
-                    checked={isComment}
-                    onChange={handleChange}
-                  />
-                  <InputLabel
-                    style={{ margin: "auto 0px" }}
-                    id="demo-controlled-open-select-label"
-                  >
+
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="is_comment-label">
                     Разрешить комментарии
                   </InputLabel>
-                </div>
+                  <CustomSelect
+                    inputProps={register("is_comment")}
+                    labelId="is_comment-label"
+                    name="is_comment"
+                    id="is_comment"
+                    value={is_comment}
+                    onChange={(e) => handleIsCommnet(e)}
+                    error={!!errors.is_comment}
+                  >
+                    <MenuItem value={true}>Да</MenuItem>
+                    <MenuItem value={false}>Нет</MenuItem>
+                  </CustomSelect>
+                </FormControl>
 
-                <Button variant="contained" color="primary" type="submit">
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="is_published-label">Опубликован</InputLabel>
+                  <CustomSelect
+                    inputProps={register("is_published")}
+                    labelId="is_published-label"
+                    name="is_published"
+                    id="is_published"
+                    value={is_published}
+                    onChange={(e) => handleIsPublished(e)}
+                    error={!!errors.is_published}
+                  >
+                    <MenuItem value={true}>Да</MenuItem>
+                    <MenuItem value={false}>Нет</MenuItem>
+                  </CustomSelect>
+                </FormControl>
+
+                <Button variant="contained" 
+                // color="primary" 
+                type="submit">
                   Создать пост
                 </Button>
               </form>

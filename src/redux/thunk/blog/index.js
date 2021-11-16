@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 import { setBlog, setBlogCategory } from "../../action/blog";
+import PostDelete from "../../axios/blog/delete";
+import CategoryDelete from "../../axios/blog/deleteCategory";
 import BlogGet from "../../axios/blog/get";
 import BlogGetCategory from "../../axios/blog/getCategory";
 import BlogPost from "../../axios/blog/post";
@@ -68,6 +70,38 @@ export const BlogPostThunk = (FormData) => {
     };
 };
 
+export const PostDeleteThunk = (id) => {
+    return dispatch => {
+        dispatch(
+            PostDelete(
+                id,
+                res => {
+                    dispatch(BlogGetThunk())
+                    toast.success("Пост успешно удален")
+                },
+                error => {
+                    toast.error("Пост не удален " + {error})
+                },
+            ),
+        );
+    };
+};
 
+export const CategoryDeleteThunk = (id) => {
+    return dispatch => {
+        dispatch(
+            CategoryDelete(
+                id,
+                res => {
+                    dispatch(BlogCategoryThunk())
+                    toast.success("Категория успешно удалена")
+                },
+                error => {
+                    toast.error("Категория не удалена " + {error})
+                },
+            ),
+        );
+    };
+};
 
 

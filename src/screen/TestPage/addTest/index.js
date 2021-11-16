@@ -141,7 +141,7 @@ const AddPostTest = () => {
                         />
                         <Button
                             variant="contained"
-                            color="primary"
+                            // color="primary"
                             type="submit"
                         >
                             Создать пост

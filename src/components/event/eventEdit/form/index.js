@@ -145,7 +145,7 @@ const EventEditForm = () => {
                         <FormControl>
                             <CustomButton
                                 variant="contained"
-                                color="primary"
+                                // color="primary"
                                 type="submit"
                             >
                                 Сохранить мероприятие

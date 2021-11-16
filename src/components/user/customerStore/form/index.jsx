@@ -43,7 +43,7 @@ export default function CustomerForm({triggerUpdate}) {
                         </FormControl>
                         <Button
                             variant="contained"
-                            color="primary"
+                            // color="primary"
                             type="submit"
                         >
                             Добавить сотрудника

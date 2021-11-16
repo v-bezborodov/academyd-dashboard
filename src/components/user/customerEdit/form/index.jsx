@@ -193,7 +193,7 @@ const CustomerEdit = ({id}) => {
                 <br/>
                 <FormControl>
                     <Button variant="contained"
-                            color="primary"
+                            // color="primary"
                             type="submit">
                         Сохранить
                     </Button>

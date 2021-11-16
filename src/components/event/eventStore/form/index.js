@@ -142,7 +142,9 @@ const EventForm = ({ triggerUpdate }) => {
             </FormControl>
 
             <FormControl>
-              <CustomButton variant="contained" color="primary" type="submit">
+              <CustomButton variant="contained" 
+              // color="primary" 
+              type="submit">
                 Добавить мероприятие
               </CustomButton>
             </FormControl>

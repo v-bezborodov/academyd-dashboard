@@ -145,7 +145,7 @@ const CalendarForm = ({start, end, setClose}) => {
 
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     type="submit"
                 >
                     Сохранить
@@ -153,7 +153,7 @@ const CalendarForm = ({start, end, setClose}) => {
 
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={setClose}
                 >
                     Закрыть

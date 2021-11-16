@@ -23,14 +23,14 @@ const TestPage = () => {
             <div>
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={() => history.push('/all-questions')}
                 >
                     Вопросы к тесам
                 </Button>
                 <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={() => history.push('/all-test/new')}
                 >
                     Создать тест

@@ -24,7 +24,7 @@ const QuestionsPage = () => {
             <div>
             <Button
                     variant="contained"
-                    color="primary"
+                    // color="primary"
                     onClick={() => history.push('/all-questions/new')}
                 >
                     Создать вопрос

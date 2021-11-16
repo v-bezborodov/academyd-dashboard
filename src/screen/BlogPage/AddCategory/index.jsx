@@ -56,7 +56,7 @@ const CategoryPage = () => {
                         {/* <input {...register("img")} type="file" name="img" /> */}
                         <Button
                             variant="contained"
-                            color="primary"
+                            // color="primary"
                             type="submit"
                         >
                             Добавить категорию
