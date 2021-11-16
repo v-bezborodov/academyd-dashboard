@@ -29,6 +29,7 @@ export const СustomerRegistrationThunk = (dataPhone, callback) => {
 
 export const СustomerPutPositionCoffeeThunk = (data, id) => {
     return dispatch => {
+        console.log(data)
         dispatch(
             CustomerPutPositionCoffee(
                 data, id,

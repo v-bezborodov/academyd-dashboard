@@ -10,6 +10,7 @@ import {CityGetThunk} from "../../../../redux/thunk/city";
 import {CoffeePostThunk} from "../../../../redux/thunk/coffee";
 import CustomTextField from "../../../../partials/inputs/text";
 import {BlockGridItem33, BlockGridItemData} from "./index.styled";
+import { BlockGridItem100, BlockGridItem50 } from '../../../../screen/CustomerPage/index.styled';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,12 +68,12 @@ const CoffeeShopStoreForm = () => {
 
     return (
         <div>
-            <BlockGridItem33>
+            <BlockGridItem100>
                 <p>Добавить новую кофейню</p>
                 <BlockGridItemData>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form style={{display: "grid",gridTemplateColumns: "1fr 1fr"}}onSubmit={handleSubmit(onSubmit)}>
                         <FormControl>
-                            <CustomTextField inputProps={register("name", {required: 'Не может быть пустым'})}
+                            <TextField inputProps={register("name", {required: 'Не может быть пустым'})}
                                              id="name"
                                              label="Название"
                                              error={!!errors.name}
@@ -80,7 +81,7 @@ const CoffeeShopStoreForm = () => {
 
                         </FormControl>
                         <FormControl>
-                            <CustomTextField inputProps={register("address", {required: 'Не может быть пустым'})}
+                            <TextField inputProps={register("address", {required: 'Не может быть пустым'})}
                                              id="address"
                                              label="Адрес"
                                              error={errors.address}
@@ -177,7 +178,7 @@ const CoffeeShopStoreForm = () => {
                         </Button>
                     </form>
                 </BlockGridItemData>
-            </BlockGridItem33>
+            </BlockGridItem100>
         </div>
     )
 }

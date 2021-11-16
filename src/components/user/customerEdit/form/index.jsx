@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CustomerEdit = () => {
-    let {id} = useParams();
+const CustomerEdit = ({id}) => {
     const classes = useStyles();
     const {register, handleSubmit, formState: {errors}, setValue} = useForm();
     const dispatch = useDispatch()
