@@ -39,8 +39,8 @@ const CalendarMain = () => {
         var positions = data.map((item)=> {
                 var obj = {};
                 obj['title'] = 'No name'
-                if (item.user.name) obj['title'] = item.user.name;
-                if (item.user.name) obj['desc'] = item.user.name;
+                if (item?.user?.name) obj['title'] = item.user.name;
+                if (item?.user?.name) obj['desc'] = item.user.name;
                 obj['start'] = new Date(item.working_date_from);
                 obj['end'] = new Date(item.working_date_to);
                 return obj;
