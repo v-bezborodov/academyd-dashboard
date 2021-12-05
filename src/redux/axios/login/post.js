@@ -6,7 +6,7 @@ const storeLogin = (options, callbackSuccess, callbackError) => {
     return async dispatch => {
 
         customerInstance.post(
-            'api/auth/login',
+            'api/auth/admin/login',
             options
         )
             .then((res) => {
