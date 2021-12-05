@@ -8,6 +8,7 @@ import CustomerShow from "../../axios/customer/show";
 import {notifyToast, retrieveErrorFromApi} from "../../../helper/helper";
 import customerGet from "../../axios/customer/get";
 import customerDelete from "../../axios/customer/delete";
+import customerGenerarPass from '../../axios/customer/generarPasss';
 
 export const СustomerRegistrationThunk = (dataPhone, callback) => {
     return CustomerRegistration(
@@ -98,6 +99,19 @@ export const CustomerDeleteThunk = (id, callbackSuccess) => {
         id,
         res => {
             notifyToast('Юзер успешно удален');
+            if (typeof callbackSuccess === 'function') callbackSuccess()
+        },
+        error => {
+            notifyToast(retrieveErrorFromApi(error), 'error');
+        },
+    )
+};
+
+export const CustomerGenerarPassThunk = (id, callbackSuccess) => {
+    return customerGenerarPass(
+        id,
+        res => {
+            notifyToast('Пароль успешно обновлен');
             if (typeof callbackSuccess === 'function') callbackSuccess()
         },
         error => {

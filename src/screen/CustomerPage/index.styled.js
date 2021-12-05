@@ -9,7 +9,6 @@ export const BlockGridItem33 = styled.div `
     p {
       margin: 0;
       margin-bottom: 15px;
-      font-weight: 600;
     }
 `
 
@@ -22,7 +21,6 @@ export const BlockGridItem50 = styled.div `
     p {
       margin: 0;
       margin-bottom: 15px;
-      font-weight: 600;
     }
 `
 
@@ -35,7 +33,6 @@ export const BlockGridItem100 = styled.div `
     p {
       margin: 0;
       margin-bottom: 15px;
-      font-weight: 600;
     }
 `
 

@@ -44,6 +44,9 @@ const EventForm = ({ triggerUpdate }) => {
     formData.append("body", valueBody);
     formData.append("address", data.address);
     formData.append("max_attendee", data.max_attendee);
+    formData.append("start_date", data.start_date);
+    formData.append("end_date", data.end_date);
+    formData.append("video", data.video);
     if (data.img[0]) formData.append("img", data.img[0]);
     formData.append("is_published", data.is_published === true ? 1 : 0);
     await EventPostThunk(formData, triggerUpdate);
@@ -93,6 +96,38 @@ const EventForm = ({ triggerUpdate }) => {
             </FormControl>
             <FormControl>
               <TextField
+                label="Время начала"
+                type="datetime-local"
+                error={errors.start_date}
+                inputProps={register("start_date")}
+                id="start_date"
+                helperText={
+                  errors?.start_date?.message && errors.start_date.message
+                }
+                sx={{ width: 250 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <TextField
+                label="Время начала"
+                type="datetime-local"
+                error={errors.end_date}
+                inputProps={register("end_date")}
+                id="end_date"
+                helperText={
+                  errors?.end_date?.message && errors.end_date.message
+                }
+                sx={{ width: 250 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <TextField
                 inputProps={register("max_attendee", {
                   required: "Не может быть пустым",
                 })}
@@ -102,6 +137,15 @@ const EventForm = ({ triggerUpdate }) => {
                 helperText={
                   errors?.max_attendee?.message && errors.max_attendee.message
                 }
+              />
+            </FormControl>
+            <FormControl>
+              <TextField
+                inputProps={register("video")}
+                id="video"
+                placeholder="Ссылка на видео"
+                error={errors.video}
+                helperText={errors?.video?.message && errors.video.message}
               />
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -142,9 +186,11 @@ const EventForm = ({ triggerUpdate }) => {
             </FormControl>
 
             <FormControl>
-              <CustomButton variant="contained" 
-              // color="primary" 
-              type="submit">
+              <CustomButton
+                variant="contained"
+                // color="primary"
+                type="submit"
+              >
                 Добавить мероприятие
               </CustomButton>
             </FormControl>

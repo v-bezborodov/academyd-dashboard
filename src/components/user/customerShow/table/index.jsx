@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
 import {BlockGridItem100} from "../../../../screen/CustomerPage/index.styled";
-import {CustomerDeleteThunk} from "../../../../redux/thunk/customer";
+import {CustomerDeleteThunk, CustomerGenerarPassThunk} from "../../../../redux/thunk/customer";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -35,6 +35,11 @@ export default function CustomerTable({data, triggerUpdate}) {
         if (!id) return;
         deleteRow(index);
         CustomerDeleteThunk(id, triggerUpdate);
+    }
+
+    const generarPass = (event, id) =>{
+        if (event) event.preventDefault();
+        CustomerGenerarPassThunk(id)
     }
 
     const deleteRow = (index) => {
@@ -88,6 +93,8 @@ export default function CustomerTable({data, triggerUpdate}) {
                                     <Link to={"/all-customer/" + row.id}>Изменить</Link>
                                     <br/>
                                     <a href={row.id} onClick={(e) => deleteUser(e, row.id, index)}>Удалить</a>
+                                    <br/>
+                                    <a href={row.id} onClick={(e) => generarPass(e, row.id)}>Сбросить пароль</a>
                                 </TableCell>
 
                             </TableRow>

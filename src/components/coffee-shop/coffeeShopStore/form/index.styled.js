@@ -9,7 +9,6 @@ export const BlockGridItem33 = styled.div `
     p {
       margin: 0;
       margin-bottom: 15px;
-      font-weight: 600;
     }
 `
 
