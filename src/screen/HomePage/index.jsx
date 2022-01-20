@@ -11,7 +11,7 @@ const Home = () => {
         <div className="container">
             <Menu/>
             <div>
-                <p>Главная</p>
+                {/* <p>Главная</p> */}
             </div>
         </div>
 )

@@ -74,8 +74,8 @@ const CustomerEditCoffee = ({ id }) => {
   const onSubmit = async (data) => {
     if (!data) return;
     const formData = new FormData();
-    formData.append("coffeeshopId", coffeeId);
-    formData.append("positionId", positionId);
+    formData.append("coffee_shop_id", coffeeId);
+    formData.append("position_id", positionId);
 
     dispatch(СustomerPutPositionCoffeeThunk(formData, id));
   };

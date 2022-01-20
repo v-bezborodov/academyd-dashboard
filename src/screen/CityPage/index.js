@@ -30,7 +30,7 @@ const CityPage = () => {
             <div>
                 <div>
                 <BlockGridItem33>
-                    <p>Добавить сотрудника</p>
+                    <p>Добавить город</p>
                     <BlockGridItemData>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField {...register("name", { required: 'Не может быть пустым' })}
@@ -50,7 +50,6 @@ const CityPage = () => {
                     </BlockGridItemData>
                     </BlockGridItem33>
                 </div>
-                <p>Города</p>
                 <CityPageTable data={city}/>
             </div>
         </div>

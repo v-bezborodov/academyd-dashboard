@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch } from "react-redux";
 import { PostDeleteThunk } from "../../../../redux/thunk/blog";
+import { ADefault } from "../../../../style/A.styled";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -32,6 +33,7 @@ const PostPageTable = ({ data }) => {
           <TableHead>
             <TableRow>
               <TableCell>Название</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -40,7 +42,7 @@ const PostPageTable = ({ data }) => {
                 <>
                   <TableRow key={row.id}>
                     <TableCell>{row.title}</TableCell>
-                    <TableCell onClick={() => deletePost(row.id)}>Delete</TableCell>
+                    <TableCell align="right" onClick={() => deletePost(row.id)}><ADefault>Удалить</ADefault></TableCell>
                   </TableRow>
                 </>
               ))}

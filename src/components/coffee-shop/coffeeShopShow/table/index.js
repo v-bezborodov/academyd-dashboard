@@ -10,9 +10,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { CoffeeGetThunk, CoffeeShopDeleteThunk } from "../../../../redux/thunk/coffee";
+import {
+  CoffeeGetThunk,
+  CoffeeShopDeleteThunk,
+} from "../../../../redux/thunk/coffee";
 import { CityGetThunk } from "../../../../redux/thunk/city";
 import { Link } from "react-router-dom";
+import { ADefault } from "../../../../style/A.styled";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -20,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   table_img: {
     width: "50px",
-    height: "auto",
+    height: "50px",
+    borderRadius: "8px",
+    objectFit: "cover",
   },
 }));
 
@@ -41,17 +47,14 @@ const CoffeeTable = () => {
 
   return (
     <div>
-      <p>Кофейни</p>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Изображение</TableCell>
-              <TableCell>Название</TableCell>
-              <TableCell align="right">Адрес</TableCell>
-              <TableCell align="right">Контакты</TableCell>
-              <TableCell align="right">Рабочие часы</TableCell>
-              <TableCell align="right">Город</TableCell>
+              <TableCell align="left">Изображение</TableCell>
+              <TableCell align="left">Название</TableCell>
+              <TableCell align="left">Адрес</TableCell>
+              <TableCell align="left">Рабочие часы</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
@@ -59,20 +62,14 @@ const CoffeeTable = () => {
             {coffee &&
               coffee.map((row) => (
                 <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" align="left">
                     {row.avatar_public ? (
-                      <a
-                        href={
-                          process.env.REACT_APP_BASE_URL + row.avatar_public
-                        }
-                      >
                         <img
                           className={classes.table_img}
                           src={
                             process.env.REACT_APP_BASE_URL + row.avatar_public
                           }
                         />
-                      </a>
                     ) : (
                       <img
                         className={classes.table_img}
@@ -80,23 +77,16 @@ const CoffeeTable = () => {
                       />
                     )}
                   </TableCell>
-                  <TableCell align="right">{row.name}</TableCell>
-                  <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="left">
-                    Телефон: {row.phone}
-                    <br />
-                    Email: {row.email}
-                  </TableCell>
-                  <TableCell align="right">{row.working_time}</TableCell>
+                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.address}</TableCell>
+                  <TableCell align="left">{row.working_time}</TableCell>
                   <TableCell align="right">
-                    {row?.city?.name && row.city.name}
-                  </TableCell>
-                  <TableCell align="center">
                     <Link to={"/all-coffee/" + row.id + "/calendar"}>
-                      Календарь
+                      <ADefault>Календарь</ADefault>
+                      
                     </Link>
                     <br />
-                    <div onClick={() => deleteCoffeeShop(row)}>Удалить</div>
+                    <ADefault onClick={() => deleteCoffeeShop(row)}>Удалить</ADefault>
                   </TableCell>
                 </TableRow>
               ))}

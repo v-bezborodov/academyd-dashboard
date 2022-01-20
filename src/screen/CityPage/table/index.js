@@ -26,13 +26,13 @@ const CityPageTable = ({data}) => {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Название</TableCell>
+                            <TableCell>Название города</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {data && data.map((row) => (
                             <TableRow key={row.name}>
-                                <TableCell align="right">{row.name}</TableCell>
+                                <TableCell align="left">{row.name}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

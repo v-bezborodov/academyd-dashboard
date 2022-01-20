@@ -5,7 +5,7 @@ export const Menu2 = styled.div `
 `
 
 export const MenuSt = styled.div `
-  background-color: #212121;
+  background-color: #181818;
   position: relative;
   width: 200px;
   transition: width 1s ease 0s;
@@ -20,7 +20,7 @@ export const MenuSt = styled.div `
     justify-content: flex-start;
     width: 200px;
     transition: width 1s ease 0s;
-    background-color: #212121;
+    background-color: #181818;
     
     a {
       font-weight: 600;
@@ -29,7 +29,7 @@ export const MenuSt = styled.div `
       text-decoration: none;
       color: #fff;
       >div {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
       p {
         font-weight: 600;
@@ -47,6 +47,11 @@ export const MenuSt = styled.div `
         }
       }
     }
+  }
+  .active_tab p{
+    font-weight: 700;
+    color: #ffffffa6;
+    text-decoration: underline;
   }
 `
 

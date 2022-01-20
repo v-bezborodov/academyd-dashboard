@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button.MuiButtonBase-root{
+  background: #C0AD7F!important;
+  color: #fff!important;
+  font-weight: 600!important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid #C0AD7F!important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #C0AD7F!important;
+}

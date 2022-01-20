@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { BlockGridItem33, BlockGridItemData } from "./index.styled";
+import { BlockGridItem100, BlockGridItem33, BlockGridItemData } from "./index.styled";
 import { useForm } from "react-hook-form";
 import CustomTextField from "../../../../partials/inputs/text";
 import { Button, FormControl, InputLabel, MenuItem } from "@material-ui/core";
@@ -12,6 +12,7 @@ import {
   EventUpdateThunk,
 } from "../../../../redux/thunk/event";
 import { useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -55,6 +56,12 @@ const EventEditForm = () => {
     setImg(data.img_public);
   };
 
+
+  const onEditorStateChange = (editorState) => {
+    setValue("body", editorState);
+  };
+  const editorContent = watch("body");
+
   const onSubmit = async (data) => {
     if (!data) return;
 
@@ -78,7 +85,7 @@ const EventEditForm = () => {
 
   return (
     <div>
-      <BlockGridItem33>
+      <BlockGridItem100>
         <p>Редактировать мероприятие {id}</p>
         <BlockGridItemData>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,16 +102,13 @@ const EventEditForm = () => {
               />
             </FormControl>
             <FormControl>
-              <CustomTextField
-                inputProps={register("body", {
-                  required: "Не может быть пустым",
-                })}
-                id="body"
-                placeholder="Описание"
-                error={errors.body}
-                helperText={errors?.body?.message && errors.body.message}
+              <ReactQuill
+                theme="snow"
+                value={editorContent}
+                onChange={onEditorStateChange}
               />
             </FormControl>
+            <br/>
             <FormControl>
               <CustomTextField
                 inputProps={register("address", {
@@ -191,7 +195,8 @@ const EventEditForm = () => {
             </FormControl>
           </form>
         </BlockGridItemData>
-      </BlockGridItem33>
+      </BlockGridItem100>
+      <br/>
     </div>
   );
 };

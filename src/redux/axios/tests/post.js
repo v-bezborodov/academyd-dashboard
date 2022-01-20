@@ -1,16 +1,18 @@
 import testsInstance from './instance'
 
-const TestsPost = (title, attemps, body, who_check, lavel, question_ids, callbackSuccess, callbackError) => {
+const TestsPost = (title, attemps, body, typeTest, levelQuestions, allQuestions, threshold_percent, can_exit, callbackSuccess, callbackError) => {
     return async dispatch => {
         testsInstance.post(
             'api/education/test',
             {
                 title: title,
-                attemps: attemps,
+                attempts: attemps,
                 body: body,
-                who_check: who_check,
-                lavel: parseInt(lavel),
-                question_ids,
+                who_check: typeTest,
+                level: levelQuestions,
+                question_ids: allQuestions,
+                threshold_percent: threshold_percent,
+                can_exit: can_exit,
             }
         )
             .then((res) => {

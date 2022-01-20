@@ -19,7 +19,7 @@ export const logInThunk = LoginData => {
 
         },
         error => {
-            toast.error("Похоже ты ошиблися паролем дорогуша: " + error)
+            toast.error("Похоже вы ошиблись паролем: " + error)
         },
       ),
     );

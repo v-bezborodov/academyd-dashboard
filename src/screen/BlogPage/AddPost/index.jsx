@@ -94,6 +94,7 @@ const AddPostPage = () => {
     dataForm.append("body", valueBody);
     dataForm.append("img", data.img[0]);
     dataForm.append("created_by", 1);
+    dataForm.append("preview", data.preview[0]);
     dataForm.append("time_read", data.time_read);
     dataForm.append("is_published", data.is_published ? 1 : 0);
     dataForm.append("is_comment", data.is_comment ? 1 : 0);
@@ -148,6 +149,7 @@ const AddPostPage = () => {
                   onChange={setValueBody}
                 />
                 <br />
+                <input {...register("preview")} type="file" name="preview" />
                 <input {...register("img")} type="file" name="img" />
                 <TextField
                   {...register("time_read", {

@@ -16,6 +16,11 @@ import { EventPostThunk } from "../../../../redux/thunk/event";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { BlockGridItem50 } from "../../../../screen/CustomerPage/index.styled";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import { ExpandMoreSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -55,148 +60,158 @@ const EventForm = ({ triggerUpdate }) => {
 
   return (
     <div>
-      <BlockGridItem50>
-        <p>Добавить мероприятие</p>
-        <BlockGridItemData>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl>
-              <TextField
-                inputProps={register("title", {
-                  required: "Не может быть пустым",
-                })}
-                id="title"
-                label="Название мероприятия"
-                error={errors.title}
-                helperText={errors?.title?.message && errors.title.message}
-              />
-            </FormControl>
-            <FormControl>
-              {/* <CustomTextField inputProps={register("body", {required: 'Не может быть пустым'})}
+      <Accordion>
+        <AccordionSummary
+          aria-controls="panel1a-content"
+          expandIcon={<ExpandMoreSharp />}
+          id="panel1a-header"
+        >
+          <Typography>Добавить новое мероприятие</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <BlockGridItemData>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl>
+                <TextField
+                  inputProps={register("title", {
+                    required: "Не может быть пустым",
+                  })}
+                  id="title"
+                  label="Название мероприятия"
+                  error={errors.title}
+                  helperText={errors?.title?.message && errors.title.message}
+                />
+              </FormControl>
+              <FormControl>
+                {/* <CustomTextField inputProps={register("body", {required: 'Не может быть пустым'})}
                                              id="body"
                                              label="Описание"
                                              error={errors.body}
                                              helperText={errors?.body?.message && errors.body.message}/> */}
-              <ReactQuill
-                theme="snow"
-                value={valueBody}
-                onChange={setValueBody}
-              />
-              <br />
-            </FormControl>
-            <FormControl>
-              <TextField
-                inputProps={register("address", {
-                  required: "Не может быть пустым",
-                })}
-                id="address"
-                label="Адрес"
-                error={errors.address}
-                helperText={errors?.address?.message && errors.address.message}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Время начала"
-                type="datetime-local"
-                error={errors.start_date}
-                inputProps={register("start_date")}
-                id="start_date"
-                helperText={
-                  errors?.start_date?.message && errors.start_date.message
-                }
-                sx={{ width: 250 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Время начала"
-                type="datetime-local"
-                error={errors.end_date}
-                inputProps={register("end_date")}
-                id="end_date"
-                helperText={
-                  errors?.end_date?.message && errors.end_date.message
-                }
-                sx={{ width: 250 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                inputProps={register("max_attendee", {
-                  required: "Не может быть пустым",
-                })}
-                id="max_attendee"
-                label="Кол-во участников"
-                error={errors.max_attendee}
-                helperText={
-                  errors?.max_attendee?.message && errors.max_attendee.message
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                inputProps={register("video")}
-                id="video"
-                placeholder="Ссылка на видео"
-                error={errors.video}
-                helperText={errors?.video?.message && errors.video.message}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="is_published-label">Опубликован</InputLabel>
-              <CustomSelect
-                inputProps={register("is_published")}
-                labelId="is_published-label"
-                name="is_published"
-                defaultValue={false}
-                id="is_published"
-                error={!!errors.is_published}
-              >
-                <MenuItem value={true}>Да</MenuItem>
-                <MenuItem value={false}>Нет</MenuItem>
-              </CustomSelect>
-            </FormControl>
+                <ReactQuill
+                  theme="snow"
+                  value={valueBody}
+                  onChange={setValueBody}
+                />
+                <br />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  inputProps={register("address", {
+                    required: "Не может быть пустым",
+                  })}
+                  id="address"
+                  label="Адрес"
+                  error={errors.address}
+                  helperText={
+                    errors?.address?.message && errors.address.message
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  label="Время начала"
+                  type="datetime-local"
+                  error={errors.start_date}
+                  inputProps={register("start_date")}
+                  id="start_date"
+                  helperText={
+                    errors?.start_date?.message && errors.start_date.message
+                  }
+                  sx={{ width: 250 }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  label="Время конца"
+                  type="datetime-local"
+                  error={errors.end_date}
+                  inputProps={register("end_date")}
+                  id="end_date"
+                  helperText={
+                    errors?.end_date?.message && errors.end_date.message
+                  }
+                  sx={{ width: 250 }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  inputProps={register("max_attendee", {
+                    required: "Не может быть пустым",
+                  })}
+                  id="max_attendee"
+                  label="Кол-во участников"
+                  error={errors.max_attendee}
+                  helperText={
+                    errors?.max_attendee?.message && errors.max_attendee.message
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <TextField
+                  inputProps={register("video")}
+                  id="video"
+                  placeholder="Ссылка на видео"
+                  error={errors.video}
+                  helperText={errors?.video?.message && errors.video.message}
+                />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="is_published-label">Опубликован</InputLabel>
+                <CustomSelect
+                  inputProps={register("is_published")}
+                  labelId="is_published-label"
+                  name="is_published"
+                  defaultValue={false}
+                  id="is_published"
+                  error={!!errors.is_published}
+                >
+                  <MenuItem value={true}>Да</MenuItem>
+                  <MenuItem value={false}>Нет</MenuItem>
+                </CustomSelect>
+              </FormControl>
 
-            <FormControl>
-              <input
-                {...register("img")}
-                accept="image/*"
-                style={{ display: "none" }}
-                id="img"
-                type="file"
-              />
-              <label htmlFor="img">
-                <Button variant="contained" component="span">
-                  Upload
-                </Button>
-              </label>
+              <FormControl>
+                <input
+                  {...register("img")}
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  id="img"
+                  type="file"
+                />
+                <label htmlFor="img">
+                  <Button variant="contained" component="span">
+                    Upload
+                  </Button>
+                </label>
 
-              {/*{avatar ?*/}
-              {/*    <a href={avatar}>*/}
-              {/*        <img className={classes.table_img} src={process.env.REACT_APP_BASE_URL + avatar}/></a>*/}
-              {/*    :*/}
-              {/*    <img className={classes.table_img} src="/img/template/no-image.png"/>*/}
-              {/*}*/}
-            </FormControl>
+                {/*{avatar ?*/}
+                {/*    <a href={avatar}>*/}
+                {/*        <img className={classes.table_img} src={process.env.REACT_APP_BASE_URL + avatar}/></a>*/}
+                {/*    :*/}
+                {/*    <img className={classes.table_img} src="/img/template/no-image.png"/>*/}
+                {/*}*/}
+              </FormControl>
 
-            <FormControl>
-              <CustomButton
-                variant="contained"
-                // color="primary"
-                type="submit"
-              >
-                Добавить мероприятие
-              </CustomButton>
-            </FormControl>
-          </form>
-        </BlockGridItemData>
-      </BlockGridItem50>
+              <FormControl>
+                <CustomButton
+                  variant="contained"
+                  // color="primary"
+                  type="submit"
+                >
+                  Добавить мероприятие
+                </CustomButton>
+              </FormControl>
+            </form>
+          </BlockGridItemData>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };
